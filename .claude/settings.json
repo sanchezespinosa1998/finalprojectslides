@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright__browser_navigate",
+      "Bash(python -m http.server 8765)",
+      "Bash(node _serve.js)",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_evaluate",
+      "Bash(cd \"/d/IRONHACK/poryecto final\" && rm -f _serve.js && echo \"cleaned\")"
+    ],
+    "additionalDirectories": [
+      "d:\\d\\IRONHACK\\poryecto final"
+    ]
+  }
+}
