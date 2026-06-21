@@ -437,6 +437,11 @@
     .dot { width: 6px; height: 6px; background: rgba(255,255,255,.24); border-radius: 999px; cursor: pointer; transition: width .3s, background .3s; }
     .dot.on { width: 18px; background: var(--green-light); }
 
+    .lang-toggle { position: fixed; top: 14px; right: 16px; z-index: 1001; display: flex; gap: 4px; background: rgba(0,0,0,.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 4px; }
+    .lang-opt { border: none; background: transparent; color: rgba(255,255,255,.6); font-size: 12px; font-weight: 800; letter-spacing: .5px; padding: 6px 13px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-opt.on { background: var(--green-light); color: var(--green-dark); }
+    .lang-opt:hover:not(.on) { color: #fff; }
+
     @media (max-width: 1000px) {
       .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid { grid-template-columns: 1fr; }
       .funnel-layout, .stack { grid-template-columns: 1fr; }
@@ -445,6 +450,11 @@
 </head>
 <body>
   <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="lang-toggle">
+    <button class="lang-opt" data-lang="en">EN</button>
+    <button class="lang-opt" data-lang="es">ES</button>
+  </div>
 
   <div class="presentation" id="pres">
 
@@ -1121,6 +1131,7 @@
     const label = document.getElementById('label');
     const progress = document.getElementById('progress');
     let current = 0;
+    let lang = 'en';
 
     total.textContent = slides.length;
 
@@ -1131,6 +1142,371 @@
       dots.appendChild(dot);
     });
 
+    /* ============ i18n — English is the default language ============ */
+    const LABELS = {
+      'Portada': 'Cover', 'Índice': 'Index', 'Contexto': 'Context', 'DAFO': 'SWOT',
+      'Competencia': 'Competitors', 'Marca': 'Brand', 'Objetivos': 'Objectives',
+      'Audiencia': 'Audience', 'Fidelización': 'Loyalty', 'Contenido': 'Content',
+      'Creatividades': 'Creatives', 'Calendario': 'Calendar', 'Retos': 'Challenges',
+      'Conclusiones': 'Conclusions', 'Cierre': 'Closing'
+    };
+
+    const DICT = {
+      // 1 · Cover
+      '🌿 Plan de Marketing Digital · Proyecto Final · Ironhack 2026': '🌿 Digital Marketing Plan · Final Project · Ironhack 2026',
+      'Moda consciente. Estilo sin compromiso.': 'Conscious fashion. Style without compromise.',
+      'Construimos una marca de moda sostenible deseable, accesible y radicalmente transparente — y la llevamos al mercado con una estrategia digital de embudo completo, del descubrimiento a la fidelización.': 'We build a sustainable fashion brand that is desirable, accessible and radically transparent — and take it to market with a full-funnel digital strategy, from discovery to loyalty.',
+      'Proyecto': 'Project', 'E-commerce de moda sostenible': 'Sustainable fashion e-commerce',
+      'Modelo': 'Model', 'D2C · Web propia': 'D2C · Own website',
+      'Canales': 'Channels', 'Presenta': 'Presented by', '[Tu nombre]': '[Your name]',
+      // 2 · Agenda
+      'Índice': 'Index',
+      'Hoja de ruta': 'Road<span>map</span>',
+      'El plan se estructura en cuatro bloques que siguen la lógica de cualquier estrategia profesional: primero entendemos el terreno, después definimos la estrategia, luego la ejecutamos y, por último, la medimos y optimizamos.': 'The plan is structured in four blocks following the logic of any professional strategy: first we understand the landscape, then we define the strategy, then we execute it and, finally, we measure and optimize it.',
+      '① Análisis': '① Analysis', '② Estrategia': '② Strategy', '③ Ejecución': '③ Execution', '④ Medición': '④ Measurement',
+      '02 Contexto y mercado': '<span class="n">02</span> Context & market',
+      '03 Análisis DAFO': '<span class="n">03</span> SWOT analysis',
+      '04 Competencia y benchmark': '<span class="n">04</span> Competitors & benchmark',
+      '05 Audiencia y buyer personas': '<span class="n">05</span> Audience & buyer personas',
+      '06 Marca: misión y valores': '<span class="n">06</span> Brand: mission & values',
+      '07 Objetivos SMART': '<span class="n">07</span> SMART objectives',
+      '08 Customer journey': '<span class="n">08</span> Customer journey',
+      '09 Pilares de contenido': '<span class="n">09</span> Content pillars',
+      '10 Funnel TOFU': '<span class="n">10</span> TOFU funnel',
+      '11 Funnel MOFU': '<span class="n">11</span> MOFU funnel',
+      '12 Funnel BOFU': '<span class="n">12</span> BOFU funnel',
+      '13 Fidelización · 14 Creatividades · 15 Email': '<span class="n">13</span> Loyalty · 14 Creatives · 15 Email',
+      '16 KPIs y presupuesto': '<span class="n">16</span> KPIs & budget',
+      '17 Calendario de ejecución': '<span class="n">17</span> Execution calendar',
+      '18 Retos y aprendizajes': '<span class="n">18</span> Challenges & learnings',
+      '19 Conclusiones y próximos pasos': '<span class="n">19</span> Conclusions & next steps',
+      // 3 · Context
+      '02 · Contexto & Mercado': '02 · Context & Market',
+      'Introducción & Oportunidad': 'Introduction & <span>Opportunity</span>',
+      'Un mercado en plena expansión y un consumidor que ya exige transparencia: GreenThread llega en el momento exacto para ocupar un espacio que las grandes marcas no saben llenar.': 'A booming market and a consumer who already demands transparency: GreenThread arrives at the exact moment to fill a space the big brands don’t know how to occupy.',
+      'El producto': 'The product',
+      'GreenThread es una marca D2C (directo al consumidor) de moda sostenible que combina piezas atemporales, materiales certificados (algodón orgánico GOTS, Tencel™ y poliéster reciclado) y una experiencia de compra digital sin fricción. Trabajamos con producción bajo demanda en cápsulas pequeñas para reducir el stock muerto y la sobreproducción. Cada prenda incluye su ficha de trazabilidad: dónde y por quién fue fabricada.': 'GreenThread is a <strong>D2C (direct-to-consumer) sustainable fashion brand</strong> that combines timeless pieces, certified materials (GOTS organic cotton, Tencel™ and recycled polyester) and a frictionless digital shopping experience. We work with <strong>on-demand production in small capsules</strong> to cut dead stock and overproduction. Every garment includes its traceability sheet: where and by whom it was made.',
+      'Básicos premium': 'Premium basics', 'Ediciones limitadas': 'Limited editions', 'Precio justo': 'Fair price', 'Trazabilidad total': 'Full traceability',
+      'El contexto: por qué ahora': 'The context: why now',
+      'La moda rápida genera el 10% de las emisiones globales de CO₂ y 92 millones de toneladas de residuo textil al año, de las que cerca del 73% acaban incineradas o en vertedero. Pero el péndulo se ha girado: el cliente ya no quiere acumular, quiere comprar mejor. La barrera ya no es el deseo de consumir de forma responsable, sino encontrar una marca que lo haga fácil, bonito y creíble. Ese hueco — valorado en más de 8.000 M$ a nivel global — es nuestra oportunidad.': 'Fast fashion generates <strong>10% of global CO₂ emissions</strong> and <strong>92 million tonnes</strong> of textile waste a year, of which around <strong>73% end up incinerated or in landfill</strong>. But the pendulum has swung: customers no longer want to accumulate, they want to buy better. The barrier is no longer the desire to consume responsibly, but <strong>finding a brand that makes it easy, beautiful and credible</strong>. That gap — worth over <strong>$8 billion globally</strong> — is our opportunity.',
+      'Crecimiento anual de la moda sostenible': 'Annual growth of sustainable fashion',
+      'Millennials que pagan más por marcas responsables': 'Millennials who pay more for responsible brands',
+      'Gen Z que prefiere marcas éticas': 'Gen Z who prefer ethical brands',
+      'El problema que resolvemos': 'The problem we solve',
+      'Lo sostenible se percibe como caro, aburrido o poco fiable. GreenThread rompe ese triángulo de objeciones con diseño deseable, precios accesibles gracias al modelo D2C y transparencia radical que elimina el miedo al greenwashing.': 'Sustainable is perceived as <strong>expensive, boring or unreliable</strong>. GreenThread breaks that triangle of objections with desirable design, accessible prices thanks to the D2C model and radical transparency that removes the fear of greenwashing.',
+      '“La primera tienda donde la moda sostenible no te cuesta más, ni en dinero ni en estilo.”': '“The first store where sustainable fashion doesn’t cost you more — not in money, not in style.”',
+      'Nuestros 4 diferenciadores frente a la competencia': 'Our 4 differentiators vs. the competition',
+      'Diseño deseable': 'Desirable design', 'Estética actual y atemporal, no “ropa de saco ecológica”.': 'Current, timeless aesthetics — not “eco sack clothing”.',
+      'Precio honesto': 'Honest price', 'Modelo D2C sin intermediarios que abarata sin renunciar a calidad.': 'D2C model with no middlemen that lowers cost without sacrificing quality.',
+      'Transparencia real': 'Real transparency', 'Materiales certificados y trazabilidad visible en cada producto.': 'Certified materials and visible traceability on every product.',
+      'Bajo impacto': 'Low impact', 'Producción bajo demanda y packaging reciclado y reciclable.': 'On-demand production and recycled, recyclable packaging.',
+      // 4 · SWOT
+      '03 · Análisis interno y externo': '03 · Internal & external analysis',
+      'Análisis DAFO': '<span>SWOT</span> analysis',
+      'Antes de definir la estrategia, evaluamos nuestra posición real: en qué somos fuertes, qué debemos mejorar, qué nos ofrece el mercado y qué amenazas debemos vigilar.': 'Before defining the strategy, we assess our real position: where we’re strong, what we must improve, what the market offers and which threats to watch.',
+      'Fortalezas': 'Strengths', 'Interno +': 'Internal +', 'Debilidades': 'Weaknesses', 'Interno −': 'Internal −',
+      'Oportunidades': 'Opportunities', 'Externo +': 'External +', 'Amenazas': 'Threats', 'Externo −': 'External −',
+      'Propuesta de valor clara y diferenciada (sostenible + accesible + bonita).': 'Clear, differentiated value proposition (sustainable + accessible + beautiful).',
+      'Modelo D2C: márgenes sanos y relación directa con el cliente.': 'D2C model: healthy margins and a direct customer relationship.',
+      'Producción bajo demanda: bajo riesgo de stock muerto.': 'On-demand production: low risk of dead stock.',
+      'Marca con storytelling fuerte y valores auténticos.': 'Brand with strong storytelling and authentic values.',
+      'Marca nueva, sin notoriedad ni base de clientes inicial.': 'New brand, with no awareness or initial customer base.',
+      'Presupuesto de marketing limitado (780€/mes).': 'Limited marketing budget (€780/month).',
+      'Catálogo aún reducido frente a grandes cadenas.': 'Still small catalogue vs. large chains.',
+      'Plazos de producción más largos que el fast fashion.': 'Longer production lead times than fast fashion.',
+      'Mercado de moda sostenible creciendo a doble dígito.': 'Sustainable fashion market growing double digits.',
+      'Consumidor cada vez más concienciado y dispuesto a pagar más.': 'Increasingly conscious consumer willing to pay more.',
+      'Regulación europea que penaliza el greenwashing y premia la transparencia.': 'European regulation penalizing greenwashing and rewarding transparency.',
+      'Auge del contenido de valores en redes (UGC, micro-influencers).': 'Rise of values-driven content on social (UGC, micro-influencers).',
+      'Grandes cadenas lanzando sus propias líneas “eco”.': 'Large chains launching their own “eco” lines.',
+      'Saturación de marcas que dicen ser sostenibles (ruido y desconfianza).': 'Saturation of self-proclaimed sustainable brands (noise and distrust).',
+      'Sensibilidad al precio en contextos de inflación.': 'Price sensitivity in inflationary contexts.',
+      'Dependencia de los costes publicitarios de las plataformas.': 'Dependence on platform advertising costs.',
+      // 5 · Competitors
+      'Análisis de la competencia': 'Competitor <span>analysis</span>',
+      'Comparamos a GreenThread con los dos grandes grupos de rivales: el fast fashion masivo y las marcas sostenibles premium. Nuestra ventaja está en el punto medio que nadie ocupa bien.': 'We compare GreenThread with the two big rival groups: mass fast fashion and premium sustainable brands. Our advantage lies in the middle ground nobody occupies well.',
+      'Criterio': 'Criteria', 'Sostenible Premium': 'Premium Sustainable',
+      'Precio': 'Price', 'Medio · justo': 'Mid · fair', 'Muy bajo': 'Very low', 'Muy alto': 'Very high',
+      'Precio medio / prenda': 'Avg. price / garment', '35–55€': '€35–55', '8–15€': '€8–15', '80–120€': '€80–120',
+      'Sostenibilidad real': 'Real sustainability', 'Alta y certificada': 'High & certified', 'Baja / dudosa': 'Low / doubtful', 'Alta': 'High',
+      'Estilo / diseño': 'Style / design', 'Actual y deseable': 'Current & desirable', 'Tendencia rápida': 'Fast trends', 'Variable': 'Variable',
+      'Transparencia': 'Transparency', 'Radical (trazabilidad)': 'Radical (traceability)', 'Opaca': 'Opaque', 'Media-alta': 'Mid-high',
+      'Experiencia digital': 'Digital experience', 'Cuidada y simple': 'Polished & simple', 'Muy desarrollada': 'Very advanced', 'A menudo básica': 'Often basic',
+      'Posicionamiento: GreenThread es la moda sostenible sin barreras — la calidad y los valores de una marca premium, con la accesibilidad y la facilidad de compra del fast fashion.': 'Positioning: GreenThread is <em>sustainable fashion without barriers</em> — the quality and values of a premium brand, with the accessibility and ease of buying of fast fashion.',
+      // 6 · Brand
+      '05 · Identidad de marca': '05 · Brand identity',
+      'Misión, visión y valores': 'Mission, vision & <span>values</span>',
+      'Toda decisión de marketing parte de aquí. La marca no es solo un logo: es una promesa coherente que se sostiene en una misión, una visión a futuro y unos valores que guían cada acción.': 'Every marketing decision starts here. A brand is not just a logo: it’s a coherent promise built on a mission, a future vision and values that guide every action.',
+      'Misión': 'Mission', 'Hacer que vestir de forma sostenible sea fácil, accesible y deseable para cualquiera, demostrando que el estilo y la responsabilidad no están reñidos.': 'Make dressing sustainably easy, accessible and desirable for anyone, proving that style and responsibility are not at odds.',
+      'Visión': 'Vision', 'Convertirnos en la marca de referencia de moda consciente en España, y en la prueba de que un modelo de negocio puede ser rentable y respetuoso a la vez.': 'Become the reference brand for conscious fashion in Spain, and proof that a business model can be both profitable and respectful.',
+      'Propósito': 'Purpose', 'Reducir el impacto de la industria textil cambiando la forma en que las personas compran ropa: menos, mejor y con sentido.': 'Reduce the textile industry’s impact by changing how people buy clothes: less, better and with meaning.',
+      'Nuestros valores en acción': 'Our values in action',
+      'Responsabilidad': 'Responsibility', 'Calidad': 'Quality', 'Cercanía': 'Closeness', 'Estilo': 'Style',
+      'Mostramos cómo y dónde producimos.': 'We show how and where we produce.',
+      'Cada decisión mide su impacto.': 'Every decision measures its impact.',
+      'Prendas que duran años, no temporadas.': 'Garments that last years, not seasons.',
+      'Hablamos claro y de tú a tú.': 'We speak plainly, one to one.',
+      'Lo sostenible también es bonito.': 'Sustainable can be beautiful too.',
+      // 7 · Objectives
+      '06 · Objetivos': '06 · Objectives',
+      'Objetivos SMART': '<span>SMART</span> objectives',
+      'Objetivos específicos, medibles, alcanzables, relevantes y con plazo. Cubren las cuatro fases del embudo para asegurar un crecimiento equilibrado, no solo ventas a corto plazo.': 'Specific, measurable, achievable, relevant and time-bound objectives. They cover all four funnel stages to ensure balanced growth, not just short-term sales.',
+      'Notoriedad': 'Awareness', 'Captación': 'Acquisition', 'Conversión': 'Conversion', 'Fidelización': 'Loyalty',
+      'Alcanzar 50k cuentas alcanzadas al mes en Instagram y 5.000 seguidores reales.': 'Reach 50k accounts per month on Instagram and 5,000 real followers.',
+      'Construir una base de 2.000 suscriptores de email cualificados vía lead magnet.': 'Build a base of 2,000 qualified email subscribers via lead magnet.',
+      'Lograr una tasa de conversión web del 2,5% con un ticket medio de 70€.': 'Achieve a 2.5% website conversion rate with a €70 average order value.',
+      'Que el 30% de los clientes repitan compra y crear un programa de fidelidad activo.': 'Get 30% of customers to repeat purchase and launch an active loyalty program.',
+      'Plazo: 6 meses': 'Timeframe: 6 months', 'Plazo: 3 meses': 'Timeframe: 3 months', 'Plazo: 12 meses': 'Timeframe: 12 months',
+      'Objetivo de negocio global: alcanzar ~15.000€ de facturación mensual recurrente en el mes 3, con un ROAS ≥ 3x y un coste de adquisición (CAC) por debajo de 12€, sentando las bases para escalar de forma rentable.': '<strong>Overall business goal:</strong> reach ~€15,000 in recurring monthly revenue by month 3, with a ROAS ≥ 3x and a customer acquisition cost (CAC) below €12, laying the foundations to scale profitably.',
+      // 8 · Audience
+      '07 · Audiencia': '07 · Audience',
+      'El Público Objetivo': 'The Target <span>Audience</span>',
+      'Tres buyer personas con motivaciones, hábitos y fricciones distintas. Conocer a cada una nos permite hablarle con el mensaje, el canal y el momento adecuados — y diseñar una estrategia para conquistarla.': 'Three buyer personas with different motivations, habits and frictions. Knowing each one lets us reach her with the right message, channel and moment — and design a strategy to win her over.',
+      'La Compradora Consciente': 'The Conscious Shopper', 'El Comprador Práctico': 'The Practical Buyer', 'La Regalo-Buscadora': 'The Gift Seeker',
+      '27–35 años': '27–35 yrs', 'Ticket ~70€': 'AOV ~€70', '≈45% del target': '≈45% of target', '4–5 compras/año': '4–5 purchases/yr',
+      '34–48 años': '34–48 yrs', 'Decisión racional': 'Rational decision', 'Ticket ~90€': 'AOV ~€90', '≈30% del target': '≈30% of target', '2–3 compras/año': '2–3 purchases/yr',
+      '30–45 años': '30–45 yrs', 'Estacional': 'Seasonal', 'Ticket ~55€': 'AOV ~€55', '≈25% del target': '≈25% of target', 'Compra estacional': 'Seasonal shopper',
+      '“Quiero que mi armario refleje quién soy, no lo que me quieren vender.”': '“I want my wardrobe to reflect who I am, not what they’re trying to sell me.”',
+      '“Si es rápido, claro y fiable, lo compro.”': '“If it’s fast, clear and reliable, I’ll buy it.”',
+      '“Quiero regalar algo con significado, no algo genérico.”': '“I want to give something meaningful, not something generic.”',
+      'Quién esProfesional urbana, sensible al medio ambiente y muy activa en redes. Sigue cuentas de moda y bienestar, y comparte lo que compra.': '<span class="lbl">Who she is</span>Urban professional, environmentally aware and very active on social. She follows fashion and wellness accounts and shares what she buys.',
+      'MotivaciónVestir con coherencia entre sus valores y su estilo. Le mueven la estética, la calidad y el significado.': '<span class="lbl">Motivation</span>Dress in line with her values and style. Driven by aesthetics, quality and meaning.',
+      'FricciónMuchas opciones sostenibles le parecen caras, poco visuales o poco transparentes, y desconfía de quien “presume” de ecológico.': '<span class="lbl">Friction</span>Many sustainable options feel expensive, unappealing or opaque, and she distrusts those who “show off” being eco.',
+      'Cómo la conquistamosContenido aspiracional en Instagram, storytelling de materiales, prueba social y una estética de marca cuidada.': '<span class="lbl">How we win her</span>Aspirational Instagram content, material storytelling, social proof and a polished brand aesthetic.',
+      'Quién esComprador eficiente que busca básicos de calidad para no renovar el armario cada temporada. Valora su tiempo por encima de todo.': '<span class="lbl">Who he is</span>Efficient buyer looking for quality basics so he doesn’t refresh his wardrobe every season. Values his time above all.',
+      'MotivaciónResolver una necesidad concreta con una compra fiable, sin perder tiempo comparando marcas dispersas.': '<span class="lbl">Motivation</span>Solve a specific need with a reliable purchase, without wasting time comparing scattered brands.',
+      'FricciónNecesita info clara de tallas, materiales, reseñas y devoluciones; abandona si la compra es confusa o lenta.': '<span class="lbl">Friction</span>Needs clear info on sizing, materials, reviews and returns; abandons if checkout is confusing or slow.',
+      'Cómo lo conquistamosSEO y Google Ads de intención, fichas claras, reseñas verificadas y checkout sencillo de 3 pasos.': '<span class="lbl">How we win him</span>Intent SEO and Google Ads, clear product pages, verified reviews and a simple 3-step checkout.',
+      'Quién esCompra en fechas señaladas (Navidad, cumpleaños) y busca inspiración en Pinterest y Google antes de decidir.': '<span class="lbl">Who she is</span>Buys on key dates (Christmas, birthdays) and looks for inspiration on Pinterest and Google before deciding.',
+      'MotivaciónSorprender con un regalo bonito, original y con valores, fácil de comprar y con un packaging que luzca.': '<span class="lbl">Motivation</span>Surprise with a gift that’s beautiful, original and values-driven, easy to buy and with packaging that looks great.',
+      'FricciónPoco tiempo y miedo a equivocarse de talla o a que el pedido no llegue a tiempo para la fecha clave.': '<span class="lbl">Friction</span>Little time and fear of getting the size wrong or the order not arriving in time for the key date.',
+      'Cómo la conquistamosTarjetas regalo, packaging premium, guías de regalo, cambios fáciles y campañas en fechas clave.': '<span class="lbl">How we win her</span>Gift cards, premium packaging, gift guides, easy exchanges and campaigns on key dates.',
+      // 9 · Customer journey
+      '08 · Experiencia de cliente': '08 · Customer experience',
+      'Customer Journey Map': 'Customer <span>Journey Map</span>',
+      'El recorrido completo del cliente, fase a fase: qué siente, dónde nos encuentra y qué hacemos nosotros en cada momento para acompañarle hasta la compra y más allá.': 'The full customer journey, stage by stage: what they feel, where they find us and what we do at each moment to guide them to purchase and beyond.',
+      'Fase 1': 'Stage 1', 'Fase 2': 'Stage 2', 'Fase 3': 'Stage 3', 'Fase 4': 'Stage 4', 'Fase 5': 'Stage 5',
+      'Descubrimiento': 'Discovery', 'Consideración': 'Consideration', 'Decisión': 'Decision', 'Compra': 'Purchase',
+      'Qué siente': 'What they feel', 'Dónde nos toca': 'Where we reach them', 'Qué hacemos': 'What we do',
+      'Curiosidad. “Qué marca tan bonita, no la conocía.”': 'Curiosity. “What a lovely brand, I’d never seen it.”',
+      'Reel, TikTok, post de un micro-influencer.': 'Reel, TikTok, a micro-influencer post.',
+      'Contenido de valor que llama la atención y aporta sin vender.': 'Valuable content that grabs attention and gives without selling.',
+      'Interés con dudas. “¿Merece la pena el precio?”': 'Interest with doubts. “Is it worth the price?”',
+      'Web, blog, email de bienvenida, reseñas.': 'Website, blog, welcome email, reviews.',
+      'Lead magnet, contenido comparativo y prueba social.': 'Lead magnet, comparative content and social proof.',
+      'Intención de compra con últimas dudas (talla, envío).': 'Purchase intent with final doubts (size, shipping).',
+      'Ficha de producto, checkout, retargeting.': 'Product page, checkout, retargeting.',
+      'Garantías visibles, checkout simple, carrito abandonado.': 'Visible guarantees, simple checkout, abandoned cart.',
+      'Expectación. “Espero que llegue bien y a tiempo.”': 'Anticipation. “I hope it arrives well and on time.”',
+      'Email de confirmación, packaging, unboxing.': 'Confirmation email, packaging, unboxing.',
+      'Storytelling de la prenda y experiencia de entrega cuidada.': 'Garment storytelling and a careful delivery experience.',
+      'Satisfacción. “Me encanta, se lo voy a contar a alguien.”': 'Satisfaction. “I love it, I’m going to tell someone.”',
+      'Newsletter, programa de referidos, club de puntos.': 'Newsletter, referral program, points club.',
+      'Reseña, recompra incentivada y advocacy.': 'Review, incentivized repurchase and advocacy.',
+      // 10 · TOFU
+      '09 · Estrategia de Funnel': '09 · Funnel strategy',
+      'TOFU — Atracción & Descubrimiento': 'TOFU — <span>Attraction & Discovery</span>',
+      'El embudo de conversión guía toda la ejecución. Empezamos por la parte alta (Top of Funnel): hacernos visibles ante personas afines que aún no nos conocen, generando alcance y reconocimiento sin pedir nada a cambio.': 'The conversion funnel guides the whole execution. We start at the top (Top of Funnel): becoming visible to like-minded people who don’t know us yet, generating reach and awareness without asking for anything in return.',
+      'Conciencia': 'Awareness',
+      'Generar alcance y reconocimiento entre audiencias afines. El objetivo no es vender, es existir en su radar y empezar a construir confianza.': 'Generate reach and awareness among like-minded audiences. The goal isn’t to sell, it’s to <strong>exist on their radar</strong> and start building trust.',
+      'Contenido lifestyle, educativo y de valores. Es el escaparate emocional de la marca y el principal motor de descubrimiento orgánico.': 'Lifestyle, educational and values content. It’s the brand’s emotional showcase and the main driver of organic discovery.',
+      'Vídeos cortos con tendencias, comparativas y curiosidades. Formato ideal para viralidad y audiencia joven a coste mínimo.': 'Short videos with trends, comparisons and curiosities. Ideal format for virality and a young audience at minimal cost.',
+      'Artículos sobre armario cápsula, materiales y estilo consciente. Tráfico orgánico cualificado que trabaja meses después.': 'Articles on capsule wardrobes, materials and conscious style. Qualified organic traffic that keeps working months later.',
+      'Campañas de reconocimiento y públicos similares (lookalike) para escalar el alcance más allá del orgánico.': 'Awareness campaigns and lookalike audiences to scale reach beyond organic.',
+      'Objetivo: 50k alcance/mes': 'Goal: 50k reach/mo', 'Objetivo: +3% engagement': 'Goal: +3% engagement', 'Objetivo: 5k visitas/mes': 'Goal: 5k visits/mo', 'Objetivo: CPM < 6€': 'Goal: CPM < €6',
+      // 11 · MOFU
+      '10 · Consideración': '10 · Consideration',
+      'MOFU — Generar confianza': 'MOFU — <span>Build trust</span>',
+      'Parte media del embudo: el usuario ya nos conoce. Ahora convertimos esa curiosidad en una relación, capturando su contacto y nutriéndolo con contenido de valor hasta que esté listo para comprar.': 'Middle of the funnel: the user already knows us. Now we turn that curiosity into a relationship, capturing their contact and nurturing it with valuable content until they’re ready to buy.',
+      'Email de bienvenida': 'Welcome email', 'Prueba social': 'Social proof', 'Contenido comparativo': 'Comparative content',
+      'Secuencia automatizada de 3 emails que presenta la misión, muestra los best-sellers y entrega el código de primera compra.': 'Automated 3-email sequence that introduces the mission, shows the best-sellers and delivers the first-purchase code.',
+      'Guía gratuita “10 pasos para vestir mejor gastando menos” a cambio del email. Educa y captura el contacto sin presión.': 'Free guide “10 steps to dress better for less” in exchange for the email. Educates and captures the contact without pressure.',
+      'Anuncios dinámicos a quien visitó la web sin comprar, recordando los productos vistos para reducir la fricción.': 'Dynamic ads to those who visited without buying, reminding them of viewed products to reduce friction.',
+      'Reseñas verificadas, UGC de clientas reales y menciones en prensa para vencer la objeción del greenwashing.': 'Verified reviews, UGC from real customers and press mentions to overcome the greenwashing objection.',
+      'Carruseles “sostenible vs. fast fashion” que resuelven dudas de precio, calidad y durabilidad de forma visual.': '“Sustainable vs. fast fashion” carousels that visually resolve doubts about price, quality and durability.',
+      'Colaboraciones con perfiles de 5k–50k muy alineados: alcance creíble, engagement alto y coste contenido.': 'Collaborations with highly aligned 5k–50k profiles: credible reach, high engagement and content-level cost.',
+      '→ Open rate objetivo: 45%': '→ Target open rate: 45%', '→ Conversión a lead: 3.5%': '→ Lead conversion: 3.5%', '→ CTR objetivo: 1.2%': '→ Target CTR: 1.2%',
+      '→ +Confianza = +Conversión': '→ +Trust = +Conversion', '→ Alto guardado y reflexión': '→ High saves and consideration', '→ ROI de credibilidad': '→ Credibility ROI',
+      // 12 · BOFU
+      '11 · Conversión': '11 · Conversion',
+      'BOFU — Cerrar la venta': 'BOFU — <span>Close the sale</span>',
+      'Parte baja del embudo: el paso más caro de ganar y el más fácil de perder. Aquí eliminamos cada duda y cada gramo de fricción para que el cliente, ya convencido, complete la compra con total seguridad.': 'Bottom of the funnel: the most expensive step to win and the easiest to lose. Here we remove every doubt and every gram of friction so the already-convinced customer completes the purchase with total confidence.',
+      'Tácticas clave de conversión': 'Key conversion tactics',
+      'Email de carrito abandonado (3 envíos): recordatorio amable → resolución de dudas (talla, envío, devolución) → urgencia suave con prueba social. Recupera hasta un 10% de ventas perdidas.': '<strong>Abandoned-cart email (3 sends):</strong> friendly reminder → answering doubts (size, shipping, returns) → soft urgency with social proof. Recovers up to 10% of lost sales.',
+      'Pop-up de intención de salida: “Te regalamos el envío” o un -10% para capturar al usuario justo cuando va a abandonar.': '<strong>Exit-intent pop-up:</strong> “Free shipping on us” or -10% to capture the user right as they’re about to leave.',
+      'Checkout sin fricción: máximo 3 pasos, pago como invitado, Bizum / Apple Pay / PayPal y barra de progreso visible.': '<strong>Frictionless checkout:</strong> max 3 steps, guest checkout, Bizum / Apple Pay / PayPal and a visible progress bar.',
+      'Garantías junto al botón: devolución gratis 30 días, envío 24–48h y sellos de pago seguro.': '<strong>Guarantees by the button:</strong> free 30-day returns, 24–48h shipping and secure-payment badges.',
+      'Urgencia honesta: stock real de ediciones limitadas (“quedan 4 unidades”), sin cuentas atrás falsas.': '<strong>Honest urgency:</strong> real stock of limited editions (“4 units left”), no fake countdowns.',
+      'Recomendaciones en ficha: “completa el look” y tallaje guiado para subir el ticket y reducir devoluciones.': '<strong>On-page recommendations:</strong> “complete the look” and guided sizing to raise AOV and cut returns.',
+      'El objetivo': 'The objective',
+      'Que la compra se sienta segura, rápida y sin riesgo. Cada mensaje y cada elemento resuelve una objeción antes de que el cliente la formule.': 'Make the purchase feel <strong>safe, fast and risk-free</strong>. Every message and element answers an objection before the customer raises it.',
+      'Tasa de conversión objetivo de la web': 'Target website conversion rate', 'Reducción esperada del abandono de carrito': 'Expected reduction in cart abandonment',
+      // 13 · Loyalty
+      '12 · Fidelización & Advocacy': '12 · Loyalty & Advocacy',
+      'Post-compra y recomendación': 'Post-purchase & <span>advocacy</span>',
+      'La venta no es el final del viaje, es el principio de una relación. Retener a un cliente cuesta hasta 5 veces menos que captar uno nuevo, y un cliente satisfecho se convierte en el canal más creíble y rentable que existe.': 'The sale isn’t the end of the journey, it’s the start of a relationship. Retaining a customer costs up to 5× less than acquiring a new one, and a happy customer becomes the most credible and profitable channel there is.',
+      'Paso 1 · Onboarding': 'Step 1 · Onboarding', 'Paso 2 · Reactivación': 'Step 2 · Reactivation', 'Paso 3 · Advocacy': 'Step 3 · Advocacy', 'Paso 4 · Comunidad': 'Step 4 · Community',
+      'Confirmación con storytelling': 'Confirmation with storytelling', 'Reseña + código de recompra': 'Review + repurchase code', 'Programa de referidos': 'Referral program', 'Newsletter & club de fidelidad': 'Newsletter & loyalty club',
+      'El email de confirmación va más allá del “gracias”: explicamos quién fabricó la prenda, con qué materiales y cómo cuidarla. Refuerza el valor emocional y eleva la percepción de calidad.': 'The confirmation email goes beyond “thank you”: we explain who made the garment, with what materials and how to care for it. It reinforces emotional value and raises perceived quality.',
+      'Unos días tras la entrega pedimos una valoración (que alimenta la prueba social) e incentivamos la siguiente compra con un descuento personalizado y limitado.': 'A few days after delivery we ask for a review (which feeds social proof) and incentivize the next purchase with a personalized, limited-time discount.',
+      '“Invita a una amiga y las dos ganáis 10€.” La recomendación convierte mejor porque llega con la confianza ya construida. Cada cliente se vuelve prescriptor.': '“Invite a friend and you both get €10.” Referrals convert better because they arrive with trust already built. Every customer becomes an advocate.',
+      'Contenido editorial, consejos de cuidado, acceso anticipado a colecciones y un club de puntos que premia la fidelidad y aumenta el valor de vida del cliente (LTV).': 'Editorial content, care tips, early access to collections and a points club that rewards loyalty and increases customer lifetime value (LTV).',
+      'Más barato retener que captar un cliente nuevo': 'Cheaper to retain than acquire a new customer', 'Objetivo de clientes que repiten compra': 'Target share of repeat customers', 'Incremento de LTV esperado con el club de fidelidad': 'Expected LTV uplift from the loyalty club',
+      // 14 · Content pillars
+      '13 · Estrategia de contenido': '13 · Content strategy',
+      'Pilares de contenido y tono de voz': 'Content pillars & <span>tone of voice</span>',
+      'Todo el contenido se reparte en cuatro pilares con un porcentaje definido. Así garantizamos que aportamos valor la mayor parte del tiempo y mantenemos una voz coherente en todos los canales.': 'All content splits into four pillars with a defined percentage. This ensures we add value most of the time and keep a consistent voice across every channel.',
+      'Educar': 'Educate', 'Inspirar': 'Inspire', 'Mostrar': 'Show', 'Vender': 'Sell',
+      '35% del contenido': '35% of content', '30% del contenido': '30% of content', '20% del contenido': '20% of content', '15% del contenido': '15% of content',
+      'Materiales, sostenibilidad, consejos de estilo y cuidado. Demuestra expertise y genera confianza.': 'Materials, sustainability, styling and care tips. Demonstrates expertise and builds trust.',
+      'Looks, lifestyle y valores. Construye el deseo de marca y la conexión emocional con la audiencia.': 'Looks, lifestyle and values. Builds brand desire and emotional connection with the audience.',
+      'Detrás de cámaras, proceso, equipo y UGC de clientas. Aporta autenticidad y transparencia.': 'Behind the scenes, process, team and customer UGC. Adds authenticity and transparency.',
+      'Producto, ofertas y lanzamientos. Directo y comercial, pero sin saturar a la audiencia.': 'Product, offers and launches. Direct and commercial, but without overwhelming the audience.',
+      'Tono de voz de la marca': 'Brand tone of voice', 'Sí / No': 'Do / Don’t',
+      'Cercano': 'Approachable', 'Honesto': 'Honest', 'Experto': 'Expert', 'Optimista': 'Optimistic', 'Sin postureo': 'No posturing',
+      'Sí: hablamos de tú, claro y con datos reales. No: ni culpabilizamos, ni usamos jerga vacía ni promesas que no podemos demostrar.': '<span class="yes">Do:</span> we speak directly, clearly and with real data. <span class="no">Don’t:</span> we don’t guilt-trip, use empty jargon or make promises we can’t prove.',
+      // 15 · Creatives
+      '14 · Creatividades': '14 · Creatives',
+      'Ejemplos de contenido': 'Content <span>examples</span>',
+      'Ideas reales con un objetivo concreto en cada fase del funnel — del primer scroll que genera curiosidad, al carrito recuperado que cierra la venta. Cada pieza tiene formato, mensaje y KPI claros.': 'Real ideas with a specific goal at each funnel stage — from the first scroll that sparks curiosity to the recovered cart that closes the sale. Each piece has a clear format, message and KPI.',
+      'MOFU · Carrusel': 'MOFU · Carousel', 'TOFU · Blog SEO': 'TOFU · SEO Blog',
+      'Vídeo · 20–30s': 'Video · 20–30s', 'Imagen · 6 slides': 'Image · 6 slides', 'Email automatizado': 'Automated email', 'Artículo · 1.200 palabras': 'Article · 1,200 words', 'Anuncio dinámico': 'Dynamic ad',
+      '“Lo que no te cuentan sobre una camiseta de 8€”': '“What they don’t tell you about an €8 t-shirt”',
+      '“5 razones por las que la moda sostenible sí merece la pena”': '“5 reasons sustainable fashion is worth it”',
+      'Carrito abandonado: “¿Te faltó algo?”': 'Abandoned cart: “Did you forget something?”',
+      '“Cómo crear un armario cápsula con 12 prendas”': '“How to build a capsule wardrobe with 12 pieces”',
+      'Testimonios reales de clientas': 'Real customer testimonials',
+      'Retargeting con envío gratis': 'Retargeting with free shipping',
+      'Combina denuncia, curiosidad y educación. Engancha en los 3 primeros segundos sin sonar agresivo y posiciona los valores de marca.': 'Combines critique, curiosity and education. Hooks in the first 3 seconds without sounding aggressive and positions brand values.',
+      'Resuelve objeciones de precio, calidad y durabilidad una a una. Pensado para el guardado y el compartido.': 'Tackles price, quality and durability objections one by one. Designed for saves and shares.',
+      'Breve, visual y humano. Recuerda el producto exacto, añade reseñas reales y refuerza garantías de envío y devolución.': 'Short, visual and human. Reminds of the exact product, adds real reviews and reinforces shipping and return guarantees.',
+      'Capta tráfico de búsqueda informativa y enlaza de forma natural a las categorías de producto.': 'Captures informational search traffic and links naturally to product categories.',
+      'Contenido generado por las usuarias mostrando las prendas en su día a día. Máxima credibilidad, coste mínimo.': 'Content created by users showing the garments in their daily life. Maximum credibility, minimal cost.',
+      'Impacta a quien vio un producto y no compró, con la prenda exacta y un incentivo final que rompe la última barrera.': 'Reaches those who viewed a product without buying, with the exact garment and a final incentive that breaks the last barrier.',
+      'KPI: alcance & guardados': 'KPI: reach & saves', 'KPI: saves & CTR a web': 'KPI: saves & CTR to site', 'KPI: recuperación de ventas': 'KPI: sales recovery',
+      'KPI: posición orgánica & sesiones': 'KPI: organic ranking & sessions', 'KPI: confianza & conversión': 'KPI: trust & conversion', 'KPI: ROAS & conversión': 'KPI: ROAS & conversion',
+      // 16 · Email
+      'Flujos de automatización': 'Automation <span>flows</span>',
+      'El email es nuestro canal propio más rentable: no dependemos de algoritmos y hablamos directamente con el cliente. Estos cuatro flujos automatizados trabajan 24/7 en cada fase del embudo.': 'Email is our most profitable owned channel: we don’t depend on algorithms and we talk directly to the customer. These four automated flows work 24/7 across every funnel stage.',
+      'Bienvenida': 'Welcome', 'Carrito abandonado': 'Abandoned cart', 'Post-compra': 'Post-purchase', 'Reactivación (win-back)': 'Reactivation (win-back)',
+      'Disparador: nuevo suscriptor': 'Trigger: new subscriber', 'Disparador: carrito sin finalizar': 'Trigger: unfinished cart', 'Disparador: pedido entregado': 'Trigger: order delivered', 'Disparador: 60 días sin actividad': 'Trigger: 60 days inactive',
+      'Inmediato: bienvenida + código de primera compra y la guía descargable.': '<strong>Immediate:</strong> welcome + first-purchase code and the downloadable guide.',
+      '+2 días: nuestra historia y por qué la sostenibilidad importa.': '<span class="delay">+2 days:</span> our story and why sustainability matters.',
+      '+4 días: best-sellers + reseñas para empujar a la primera compra.': '<span class="delay">+4 days:</span> best-sellers + reviews to drive the first purchase.',
+      '+1 hora: “¿Te faltó algo?” con la imagen del producto.': '<span class="delay">+1 hour:</span> “Did you forget something?” with the product image.',
+      '+24 horas: resolvemos dudas (talla, envío, devolución) + reseñas.': '<span class="delay">+24 hours:</span> we answer doubts (size, shipping, returns) + reviews.',
+      '+48 horas: incentivo final (envío gratis) con urgencia suave.': '<span class="delay">+48 hours:</span> final incentive (free shipping) with soft urgency.',
+      'Al entregar: storytelling de la prenda y guía de cuidado.': '<strong>On delivery:</strong> garment storytelling and care guide.',
+      '+7 días: petición de reseña + código de recompra.': '<span class="delay">+7 days:</span> review request + repurchase code.',
+      '+14 días: invitación al programa de referidos.': '<span class="delay">+14 days:</span> invitation to the referral program.',
+      '“Te echamos de menos”: novedades de la marca y nueva colección.': '<strong>“We miss you”:</strong> brand news and the new collection.',
+      '+5 días: oferta personalizada según compras anteriores.': '<span class="delay">+5 days:</span> personalized offer based on past purchases.',
+      '+10 días: última llamada + limpieza de lista si no reacciona.': '<span class="delay">+10 days:</span> last call + list cleanup if no response.',
+      // 17 · KPIs
+      '16 · Métricas & Presupuesto': '16 · Metrics & Budget',
+      'Indicadores de éxito': 'Success <span>metrics</span>',
+      'Qué medimos en cada fase del funnel, cuánto invertimos en cada canal y qué retorno esperamos. Una estrategia solo es profesional si es medible y se ajusta con datos.': 'What we measure at each funnel stage, how much we invest in each channel and what return we expect. A strategy is only professional if it’s measurable and adjusted with data.',
+      'Alcance mensual en Instagram (TOFU)': 'Monthly Instagram reach (TOFU)', 'Visitantes que se suscriben (MOFU)': 'Visitors who subscribe (MOFU)', 'Visitantes que compran (BOFU)': 'Visitors who buy (BOFU)', 'ROAS objetivo en campañas de pago': 'Target ROAS on paid campaigns',
+      'Tasa de apertura de email objetivo': 'Target email open rate', 'CAC · coste de adquisición de cliente': 'CAC · customer acquisition cost', 'LTV · valor de vida del cliente': 'LTV · customer lifetime value', 'Engagement medio objetivo en redes': 'Target average social engagement',
+      'Canal': 'Channel', 'Fase': 'Stage', 'Objetivo': 'Goal', 'Coste/mes': 'Cost/mo',
+      'Instagram & TikTok orgánico': 'Organic Instagram & TikTok', 'Tráfico cualificado': 'Qualified traffic', 'Email Marketing (herramienta)': 'Email marketing (tool)', 'Alcance': 'Reach', 'Retargeting dinámico': 'Dynamic retargeting', 'Demanda activa': 'Active demand', 'Total inversión mensual': 'Total monthly investment', '780€/mes': '€780/mo',
+      'Proyección de retorno (mes 3)': 'Return projection (month 3)',
+      'Visitas mensuales estimadas': 'Estimated monthly visits', 'Pedidos estimados (conv. 2.5%)': 'Estimated orders (2.5% conv.)', 'Ticket medio': 'Average order value', 'Ingresos estimados': 'Estimated revenue', 'CAC objetivo (coste por cliente)': 'Target CAC (cost per customer)', 'ROAS global proyectado': 'Projected overall ROAS',
+      '* Proyección conservadora basada en benchmarks del sector e-commerce de moda. Las métricas se revisan semanalmente y el presupuesto se reasigna hacia los canales con mejor ROAS.': '* Conservative projection based on fashion e-commerce benchmarks. Metrics are reviewed weekly and budget is reallocated to the channels with the best ROAS.',
+      // 18 · Calendar
+      'Primer mes de ejecución': 'First month of <span>execution</span>',
+      'Un plan semanal claro para lanzar la estrategia con orden, ritmo y aprendizaje continuo. Cada semana tiene un foco distinto que construye sobre la anterior, de la preparación a la optimización con datos.': 'A clear weekly plan to launch the strategy with order, rhythm and continuous learning. Each week has a distinct focus that builds on the previous one, from setup to data-driven optimization.',
+      'Semana 1': 'Week 1', 'Semana 2': 'Week 2', 'Semana 3': 'Week 3', 'Semana 4': 'Week 4',
+      'Tráfico': 'Traffic', 'Optimizar': 'Optimize',
+      'Lun: Reel sobre el fast fashion': '<strong>Mon:</strong> Reel on fast fashion',
+      'Mar: Blog “armario cápsula”': '<strong>Tue:</strong> Blog “capsule wardrobe”',
+      'Jue: Carrusel de materiales': '<strong>Thu:</strong> Materials carousel',
+      'Base: instalar píxel de seguimiento': '<strong>Base:</strong> install tracking pixel',
+      'Base: automatizar bienvenida': '<strong>Base:</strong> automate welcome flow',
+      'Mié: Vídeo behind the scenes': '<strong>Wed:</strong> Behind-the-scenes video',
+      'Vie: Activar secuencia bienvenida': '<strong>Fri:</strong> Activate welcome sequence',
+      'Fin: Stories con CTA + UGC': '<strong>Wknd:</strong> Stories with CTA + UGC',
+      'Ads: lanzar campaña awareness': '<strong>Ads:</strong> launch awareness campaign',
+      'SEO: segundo artículo': '<strong>SEO:</strong> second article',
+      'Lun: Colab micro-influencer': '<strong>Mon:</strong> Micro-influencer collab',
+      'Mié: Campaña nueva colección': '<strong>Wed:</strong> New collection campaign',
+      'Vie: Countdown + retargeting': '<strong>Fri:</strong> Countdown + retargeting',
+      'Ads: activar carrito abandonado': '<strong>Ads:</strong> activate abandoned cart',
+      'Email: primera newsletter': '<strong>Email:</strong> first newsletter',
+      'Lun: Revisión de KPIs': '<strong>Mon:</strong> KPI review',
+      'Jue: A/B testing de email': '<strong>Thu:</strong> Email A/B testing',
+      'Vie: Reasignación de presupuesto': '<strong>Fri:</strong> Budget reallocation',
+      'Plan: escalar lo que funciona': '<strong>Plan:</strong> scale what works',
+      'Plan: contenidos del mes 2': '<strong>Plan:</strong> month-2 content',
+      // 19 · Challenges
+      '18 · Aprendizajes & Retos': '18 · Learnings & Challenges',
+      'Desafíos y cómo los resolvemos': 'Challenges & <span>how we solve them</span>',
+      'Todo proyecto real implica decisiones difíciles. Estos son los principales retos de GreenThread y la decisión estratégica con la que respondemos a cada uno.': 'Every real project involves tough decisions. These are GreenThread’s main challenges and the strategic decision we respond to each one with.',
+      'Tono de voz coherente': 'Consistent tone of voice', 'Presupuesto limitado': 'Limited budget', 'Confianza frente al greenwashing': 'Trust vs. greenwashing', 'Equilibrio valor vs. venta': 'Value vs. sales balance', 'Estacionalidad de la demanda': 'Seasonal demand', 'Logística y devoluciones': 'Logistics & returns',
+      'Lograr que Instagram, la web y el email hablen con la misma personalidad y valores, sin sonar repetitivos ni corporativos.': 'Getting Instagram, the website and email to speak with the same personality and values, without sounding repetitive or corporate.',
+      'Competir por atención con marcas mucho más grandes con solo 780€/mes de inversión en medios.': 'Competing for attention with much larger brands on just €780/month of media spend.',
+      'El consumidor desconfía de las marcas que se autoproclaman “sostenibles” sin pruebas.': 'Consumers distrust brands that call themselves “sustainable” without proof.',
+      'El contenido debe educar y convertir a la vez, sin volverse agresivamente comercial.': 'Content must educate and convert at once, without becoming aggressively commercial.',
+      'La moda y los regalos tienen picos (rebajas, Navidad) y valles que desestabilizan ventas y caja.': 'Fashion and gifting have peaks (sales, Christmas) and troughs that destabilize sales and cash flow.',
+      'Las devoluciones por talla son caras y una de las grandes causas de pérdida de margen en moda online.': 'Size-related returns are expensive and a major cause of margin loss in online fashion.',
+      'Solución: guía de marca con tono cercano pero experto y un banco de mensajes reutilizable por canal.': '<b>Solution:</b> brand guide with an approachable yet expert tone and a reusable message bank per channel.',
+      'Solución: el orgánico (SEO + redes) sostiene el alcance mientras el paid se concentra en lo más rentable: retargeting y demanda activa.': '<b>Solution:</b> organic (SEO + social) sustains reach while paid focuses on the most profitable: retargeting and active demand.',
+      'Solución: transparencia radical — certificaciones visibles, trazabilidad real y testimonios verificados.': '<b>Solution:</b> radical transparency — visible certifications, real traceability and verified testimonials.',
+      'Solución: regla 80/20 — el 80% aporta valor y solo el 20% es promocional directo.': '<b>Solution:</b> the 80/20 rule — 80% adds value and only 20% is directly promotional.',
+      'Solución: calendario de campañas anticipado para fechas clave y foco en fidelización para los meses valle.': '<b>Solution:</b> a campaign calendar planned ahead for key dates and a loyalty focus for the trough months.',
+      'Solución: guía de tallas detallada, fotos en modelos reales con medidas y atención proactiva.': '<b>Solution:</b> detailed size guide, photos on real models with measurements and proactive support.',
+      // 20 · Conclusions
+      '19 · Conclusiones & Próximos pasos': '19 · Conclusions & Next steps',
+      'Hacia dónde vamos': 'Where we’re <span>going</span>',
+      'El primer mes valida la estrategia; los siguientes la escalan. Este es el plan de crecimiento por fases y las tres ideas que sostienen todo el proyecto.': 'The first month validates the strategy; the following ones scale it. This is the phased growth plan and the three ideas that hold the whole project together.',
+      'Mes 1–2': 'Month 1–2', 'Mes 3–6': 'Month 3–6', 'Mes 6–12': 'Month 6–12',
+      'Validar': 'Validate', 'Escalar': 'Scale', 'Consolidar': 'Consolidate',
+      'Lanzar canales y primeras campañas.': 'Launch channels and first campaigns.',
+      'Construir la base de suscriptores.': 'Build the subscriber base.',
+      'Medir qué contenido y canal convierten mejor.': 'Measure which content and channel convert best.',
+      'Optimizar la web y el checkout.': 'Optimize the website and checkout.',
+      'Aumentar inversión en los canales rentables.': 'Increase investment in profitable channels.',
+      'Ampliar colaboraciones con influencers.': 'Expand influencer collaborations.',
+      'Lanzar el programa de fidelidad.': 'Launch the loyalty program.',
+      'Primeras campañas estacionales potentes.': 'First strong seasonal campaigns.',
+      'Construir comunidad y marca reconocida.': 'Build community and a recognized brand.',
+      'Ampliar catálogo con nuevas cápsulas.': 'Expand the catalogue with new capsules.',
+      'Explorar nuevos mercados y canales.': 'Explore new markets and channels.',
+      'Maximizar el LTV y la recurrencia.': 'Maximize LTV and recurrence.',
+      'Las 3 ideas que sostienen el plan': 'The 3 ideas that hold the plan together',
+      'Un posicionamiento único: sostenibilidad accesible, sin renunciar a estilo ni a precio.': 'A <strong>unique positioning</strong>: accessible sustainability, without giving up style or price.',
+      'Un embudo completo que acompaña al cliente del descubrimiento a la recomendación.': 'A <strong>full funnel</strong> that guides the customer from discovery to advocacy.',
+      'Una ejecución medible y optimizable, que crece reinvirtiendo en lo que funciona.': 'A <strong>measurable, optimizable</strong> execution that grows by reinvesting in what works.',
+      // 21 · Closing
+      'Del primer scroll a la primera compra, y de la primera compra a la recomendación: una estrategia de marketing digital pensada para acompañar y convertir en cada paso del viaje del cliente, con la sostenibilidad y la transparencia como ventaja competitiva real.': 'From the first scroll to the first purchase, and from the first purchase to advocacy: a digital marketing strategy designed to guide and convert at every step of the customer journey, with sustainability and transparency as a real competitive advantage.',
+      'Marketing Digital': 'Digital Marketing', 'Moda Sostenible': 'Sustainable Fashion', 'Funnel Completo': 'Full Funnel',
+      '¡Gracias!': 'Thank you!',
+      '[Tu nombre] · Proyecto Final de Marketing Digital · Ironhack 2026': '[Your name] · Digital Marketing Final Project · Ironhack 2026'
+    };
+
+    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact';
+
+    const norm = s => s.replace(/\s+/g, ' ').trim();
+    let i18nNodes = [];
+    function buildI18n() {
+      i18nNodes = [];
+      document.querySelectorAll(SEL).forEach(el => {
+        i18nNodes.push({ el: el, es: el.innerHTML, key: norm(el.textContent) });
+      });
+    }
+    function applyLang() {
+      i18nNodes.forEach(o => {
+        if (lang === 'es') { o.el.innerHTML = o.es; }
+        else { const en = DICT[o.key]; o.el.innerHTML = (en != null) ? en : o.es; }
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+      update();
+    }
+    document.querySelectorAll('.lang-opt').forEach(b => {
+      b.addEventListener('click', () => { lang = b.dataset.lang; applyLang(); });
+    });
+
     function update() {
       slides.forEach((slide, i) => {
         const isActive = i === current;
@@ -1139,7 +1515,8 @@
       });
       document.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('on', i === current));
       counter.textContent = current + 1;
-      label.textContent = slides[current].dataset.label;
+      const raw = slides[current].dataset.label;
+      label.textContent = (lang === 'en' && LABELS[raw]) ? LABELS[raw] : raw;
       progress.style.width = ((current + 1) / slides.length * 100) + '%';
     }
 
@@ -1157,7 +1534,8 @@
       if (e.key === 'End') goTo(slides.length - 1);
     });
 
-    update();
+    buildI18n();
+    applyLang();
   </script>
 </body>
 </html>
