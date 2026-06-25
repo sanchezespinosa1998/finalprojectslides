@@ -14,7 +14,9 @@
       "Bash(rm -f _serve.js)",
       "Bash(rm -f _serve.js social-slide.jpeg)",
       "Bash(node -e ' *)",
-      "Bash(rm -f _serve.js schema-slide.jpeg)"
+      "Bash(rm -f _serve.js schema-slide.jpeg)",
+      "Bash(rm -f _serve.js model-slide.jpeg)",
+      "Bash(rm -f _serve.js bizmodel.jpeg)"
     ],
     "additionalDirectories": [
       "d:\\d\\IRONHACK\\poryecto final"

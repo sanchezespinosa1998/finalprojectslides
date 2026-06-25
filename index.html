@@ -500,13 +500,55 @@
     .sb-item .sbt { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
     .sb-item .sbd { font-size: 11.5px; color: rgba(255,255,255,.64); line-height: 1.42; }
 
+    /* ---------- Acquisition model (spreadsheet) ---------- */
+    .s-model { background: linear-gradient(140deg, #0e1822 0%, #16303a 100%); }
+    .xls-wrap { background: #fff; border-radius: 14px; overflow-x: auto; box-shadow: var(--shadow-lg); }
+    .xls { border-collapse: collapse; width: 100%; font-size: 14px; color: var(--text-dark); font-variant-numeric: tabular-nums; }
+    .xls td { border: 1px solid #e4e2da; padding: 11px 16px; text-align: right; white-space: nowrap; }
+    .xls .xls-cols td { background: #f1efe7; color: #a7a7a7; font-size: 11px; font-weight: 700; text-align: center; padding: 5px; }
+    .xls .corner { background: #e7e4da; }
+    .xls .rn { background: #f1efe7; color: #a7a7a7; font-size: 11px; font-weight: 700; text-align: center; width: 36px; }
+    .xls .xls-head td:not(.rn) { background: var(--green-dark); color: #fff; font-weight: 800; text-align: center; font-size: 12.5px; line-height: 1.3; white-space: normal; }
+    .xls tbody td:nth-child(2) { font-weight: 700; color: var(--text-dark); }
+    .xls .vis { font-weight: 700; }
+    .xls .cpc { font-weight: 800; color: var(--green-mid); }
+    .xls tr.hl td:not(.rn) { background: rgba(99,199,141,.16); }
+    .xls tr.hl .cpc { color: var(--green-dark); }
+    .model-foot { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; margin-top: 16px; }
+    .model-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 15px 18px; }
+    .model-card .mh { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--green-light); margin-bottom: 7px; }
+    .model-card p { font-size: 13.5px; color: rgba(255,255,255,.78); line-height: 1.55; }
+    .model-card.formula p { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; color: var(--green-pale); }
+
+    /* ---------- Business model / unit economics ---------- */
+    .s-bizmodel { background: linear-gradient(140deg, #0d1f17 0%, #163a2a 100%); }
+    .bm-cols { display: grid; grid-template-columns: 1.18fr .82fr; gap: 18px; }
+    .bm-table { display: flex; flex-direction: column; gap: 8px; }
+    .bm-row { display: grid; grid-template-columns: 132px 96px 1fr; gap: 12px; align-items: start; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 11px 14px; }
+    .bm-row .bm-k { font-size: 13.5px; font-weight: 700; color: #fff; }
+    .bm-row .bm-v { font-size: 14.5px; font-weight: 800; color: var(--green-light); }
+    .bm-row .bm-r { font-size: 12px; color: rgba(255,255,255,.62); line-height: 1.45; }
+    .bm-row.head { background: rgba(99,199,141,.1); border-color: rgba(99,199,141,.2); }
+    .bm-row.head div { font-size: 10.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--green-light); }
+    .bm-formula { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; overflow: hidden; }
+    .bm-frow { display: grid; grid-template-columns: 1.3fr 1fr .7fr; gap: 8px; padding: 10px 14px; font-size: 13px; color: #fff; border-top: 1px solid rgba(255,255,255,.06); }
+    .bm-frow:first-child { border-top: none; }
+    .bm-frow .fc { color: rgba(255,255,255,.55); }
+    .bm-frow .fv { text-align: right; font-weight: 800; color: var(--green-light); }
+    .bm-frow.head { background: rgba(99,199,141,.1); }
+    .bm-frow.head div { font-size: 10.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--green-light); }
+    .bm-frow.total { background: rgba(99,199,141,.14); }
+    .bm-callout { background: rgba(99,199,141,.08); border: 1px solid rgba(99,199,141,.2); border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
+    .bm-callout h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--green-light); font-weight: 800; margin-bottom: 6px; }
+    .bm-callout p { font-size: 13px; color: rgba(255,255,255,.78); line-height: 1.5; }
+
     .landing-link { position: fixed; top: 14px; left: 16px; z-index: 1001; display: inline-flex; align-items: center; gap: 8px; background: var(--green-mid); color: #fff; border-radius: 999px; padding: 9px 17px; font-size: 12.5px; font-weight: 800; letter-spacing: .5px; text-decoration: none; box-shadow: 0 8px 22px rgba(0,0,0,.28); transition: background .2s, transform .2s; }
     .landing-link:hover { background: var(--green-dark); transform: translateY(-2px); }
     .s12 .closing-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; background: var(--green-light); color: var(--green-dark); font-weight: 800; font-size: 15px; padding: 14px 30px; border-radius: 999px; text-decoration: none; position: relative; z-index: 2; transition: background .2s, transform .2s; }
     .s12 .closing-cta:hover { background: #fff; transform: translateY(-2px); }
 
     @media (max-width: 1000px) {
-      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid, .ctype-grid, .social-cols, .schema-cols, .schema-benefits { grid-template-columns: 1fr; }
+      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid, .ctype-grid, .social-cols, .schema-cols, .schema-benefits, .model-foot, .bm-cols { grid-template-columns: 1fr; }
       .funnel-layout, .stack { grid-template-columns: 1fr; }
     }
   </style>
@@ -577,10 +619,11 @@
         <div class="agenda-block">
           <div class="ab-head">④ Medición</div>
           <ol>
-            <li><span class="n">18</span> KPIs y presupuesto</li>
-            <li><span class="n">19</span> Calendario de ejecución</li>
-            <li><span class="n">20</span> Retos y aprendizajes</li>
-            <li><span class="n">21</span> Conclusiones y próximos pasos</li>
+            <li><span class="n">18</span> KPIs · 19 Modelo de adquisición</li>
+            <li><span class="n">20</span> Modelo de negocio</li>
+            <li><span class="n">21</span> Calendario de ejecución</li>
+            <li><span class="n">22</span> Retos y aprendizajes</li>
+            <li><span class="n">23</span> Conclusiones y próximos pasos</li>
           </ol>
         </div>
       </div>
@@ -1180,10 +1223,76 @@
       </div>
     </div>
 
-    <!-- ===== 18 · CALENDARIO ===== -->
+    <!-- ===== 20 · MODELO DE ADQUISICIÓN ===== -->
+    <div class="slide s-model" data-label="Modelo de adquisición">
+      <div class="slide-header">
+        <div class="slide-tag blue">19 · Modelo de adquisición</div>
+        <h2 class="slide-title">Análisis de <span>sensibilidad</span></h2>
+        <p class="slide-sub">Para conseguir 60 clientes al mes con un CAC de 10€ (600€ de inversión) y un 0,80% de conversión, ¿cuántos visitantes y qué CPC máximo necesitamos según la tasa de suscripción al newsletter?</p>
+      </div>
+      <div class="xls-wrap">
+        <table class="xls">
+          <tr class="xls-cols"><td class="corner"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td></tr>
+          <tr class="xls-head"><td class="rn">1</td><td>CAC</td><td>Clientes</td><td>Conversión</td><td>Inversión / mes</td><td>% suscripción newsletter</td><td>Visitantes necesarios</td><td>CPC medio necesario</td></tr>
+          <tr><td class="rn">2</td><td>€10</td><td>60</td><td>0,80%</td><td>€600</td><td>2%</td><td class="vis">375.000</td><td class="cpc">€0,002</td></tr>
+          <tr><td class="rn">3</td><td>€10</td><td>60</td><td>0,80%</td><td>€600</td><td>3%</td><td class="vis">250.000</td><td class="cpc">€0,002</td></tr>
+          <tr><td class="rn">4</td><td>€10</td><td>60</td><td>0,80%</td><td>€600</td><td>4%</td><td class="vis">187.500</td><td class="cpc">€0,003</td></tr>
+          <tr class="hl"><td class="rn">5</td><td>€10</td><td>60</td><td>0,80%</td><td>€600</td><td>5%</td><td class="vis">150.000</td><td class="cpc">€0,004</td></tr>
+          <tr><td class="rn">6</td><td>€10</td><td>60</td><td>0,80%</td><td>€600</td><td>100%</td><td class="vis">7.500</td><td class="cpc">€0,080</td></tr>
+        </table>
+      </div>
+      <div class="model-foot">
+        <div class="model-card">
+          <div class="mh">💡 Conclusión</div>
+          <p>Cuanto mayor es la tasa de suscripción al newsletter, menos visitantes y menor CPC necesitamos para los mismos 60 clientes. El email reduce drásticamente el coste de adquisición y la dependencia del tráfico de pago.</p>
+        </div>
+        <div class="model-card formula">
+          <div class="mh">📐 Fórmulas</div>
+          <p>Visitantes = clientes ÷ conversión ÷ % suscripción · CPC máx = inversión ÷ visitantes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 21 · MODELO DE NEGOCIO ===== -->
+    <div class="slide s-bizmodel" data-label="Modelo de negocio">
+      <div class="slide-header">
+        <div class="slide-tag blue">20 · Modelo de negocio</div>
+        <h2 class="slide-title">Unit economics &amp; <span>supuestos clave</span></h2>
+        <p class="slide-sub">Las cifras que sostienen la rentabilidad de GreenThread: de dónde sale el ingreso, qué margen dejamos y en cuántas compras recuperamos lo invertido en captar a un cliente.</p>
+      </div>
+      <div class="bm-cols">
+        <div>
+          <div class="section-label">Supuestos clave</div>
+          <div class="bm-table">
+            <div class="bm-row head"><div class="bm-k">Supuesto</div><div class="bm-v">Valor</div><div class="bm-r">Razonamiento</div></div>
+            <div class="bm-row"><div class="bm-k">Margen bruto</div><div class="bm-v">60%</div><div class="bm-r">Modelo D2C sin intermediarios; envío, devoluciones y producción reducen el margen total.</div></div>
+            <div class="bm-row"><div class="bm-k">CAC</div><div class="bm-v">€12</div><div class="bm-r">Captación mixta: orgánico (SEO y redes), retargeting y referidos abaratan la media.</div></div>
+            <div class="bm-row"><div class="bm-k">Costes fijos</div><div class="bm-v">€4.000/mes</div><div class="bm-r">Operación lean: web, herramientas, packaging, atención y marketing base.</div></div>
+            <div class="bm-row"><div class="bm-k">Ticket medio</div><div class="bm-v">€70</div><div class="bm-r">Cesta media por pedido en básicos premium y ediciones limitadas.</div></div>
+            <div class="bm-row"><div class="bm-k">Recurrencia</div><div class="bm-v">30%</div><div class="bm-r">Clientes que repiten compra gracias a la fidelización y el club de puntos.</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Fórmula de ingresos por cliente</div>
+          <div class="bm-formula">
+            <div class="bm-frow head"><div>Componente</div><div class="fc">Cálculo</div><div class="fv">Valor</div></div>
+            <div class="bm-frow"><div>Ticket medio (AOV)</div><div class="fc">Cesta por pedido</div><div class="fv">€70</div></div>
+            <div class="bm-frow"><div>Compras por cliente</div><div class="fc">1ª + recurrencia</div><div class="fv">~1,6</div></div>
+            <div class="bm-frow"><div>Ingreso por cliente (LTV)</div><div class="fc">€70 × 1,6</div><div class="fv">€110</div></div>
+            <div class="bm-frow total"><div>Margen por cliente</div><div class="fc">€110 × 60%</div><div class="fv">€66</div></div>
+          </div>
+          <div class="bm-callout">
+            <h4>📊 CAC payback &amp; breakeven</h4>
+            <p>Con €42 de margen en el primer pedido (€70 × 60%) y un CAC de €12, recuperamos la inversión en la primera compra. Para cubrir los €4.000 de costes fijos necesitamos ≈ 95 pedidos al mes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 22 · CALENDARIO ===== -->
     <div class="slide s10" data-label="Calendario">
       <div class="slide-header">
-        <div class="slide-tag dark">19 · Roadmap</div>
+        <div class="slide-tag dark">21 · Roadmap</div>
         <h2 class="slide-title dark">Primer mes de <span>ejecución</span></h2>
         <p class="slide-sub dark">Un plan semanal claro para lanzar la estrategia con orden, ritmo y aprendizaje continuo. Cada semana tiene un foco distinto que construye sobre la anterior, de la preparación a la optimización con datos.</p>
       </div>
@@ -1198,7 +1307,7 @@
     <!-- ===== 19 · RETOS ===== -->
     <div class="slide s11" data-label="Retos">
       <div class="slide-header">
-        <div class="slide-tag light">20 · Aprendizajes &amp; Retos</div>
+        <div class="slide-tag light">22 · Aprendizajes &amp; Retos</div>
         <h2 class="slide-title">Desafíos y <span>cómo los resolvemos</span></h2>
         <p class="slide-sub">Todo proyecto real implica decisiones difíciles. Estos son los principales retos de GreenThread y la decisión estratégica con la que respondemos a cada uno.</p>
       </div>
@@ -1215,7 +1324,7 @@
     <!-- ===== 20 · CONCLUSIONES ===== -->
     <div class="slide s-next" data-label="Conclusiones">
       <div class="slide-header">
-        <div class="slide-tag light">21 · Conclusiones &amp; Próximos pasos</div>
+        <div class="slide-tag light">23 · Conclusiones &amp; Próximos pasos</div>
         <h2 class="slide-title">Hacia dónde <span>vamos</span></h2>
         <p class="slide-sub">El primer mes valida la estrategia; los siguientes la escalan. Este es el plan de crecimiento por fases y las tres ideas que sostienen todo el proyecto.</p>
       </div>
@@ -1322,7 +1431,7 @@
       'Portada': 'Cover', 'Índice': 'Index', 'Contexto': 'Context', 'DAFO': 'SWOT',
       'Competencia': 'Competitors', 'Marca': 'Brand', 'Objetivos': 'Objectives',
       'Audiencia': 'Audience', 'Fidelización': 'Loyalty', 'Contenido': 'Content',
-      'Creatividades': 'Creatives', 'Contenido en redes': 'Social content', 'Calendario': 'Calendar', 'Retos': 'Challenges',
+      'Creatividades': 'Creatives', 'Contenido en redes': 'Social content', 'Modelo de adquisición': 'Acquisition model', 'Modelo de negocio': 'Business model', 'Calendario': 'Calendar', 'Retos': 'Challenges',
       'Conclusiones': 'Conclusions', 'Cierre': 'Closing'
     };
 
@@ -1351,10 +1460,11 @@
       '11 Funnel MOFU': '<span class="n">11</span> MOFU funnel',
       '12 Funnel BOFU': '<span class="n">12</span> BOFU funnel',
       '13 Fidelización · 14 Creatividades · 15 Redes · 16 Email · 17 Schema': '<span class="n">13</span> Loyalty · 14 Creatives · 15 Social · 16 Email · 17 Schema',
-      '18 KPIs y presupuesto': '<span class="n">18</span> KPIs & budget',
-      '19 Calendario de ejecución': '<span class="n">19</span> Execution calendar',
-      '20 Retos y aprendizajes': '<span class="n">20</span> Challenges & learnings',
-      '21 Conclusiones y próximos pasos': '<span class="n">21</span> Conclusions & next steps',
+      '18 KPIs · 19 Modelo de adquisición': '<span class="n">18</span> KPIs · 19 Acquisition model',
+      '20 Modelo de negocio': '<span class="n">20</span> Business model',
+      '21 Calendario de ejecución': '<span class="n">21</span> Execution calendar',
+      '22 Retos y aprendizajes': '<span class="n">22</span> Challenges & learnings',
+      '23 Conclusiones y próximos pasos': '<span class="n">23</span> Conclusions & next steps',
       // 3 · Context
       '02 · Contexto & Mercado': '02 · Context & Market',
       'Introducción & Oportunidad': 'Introduction & <span>Opportunity</span>',
@@ -1627,6 +1737,34 @@
       'Proyección de retorno (mes 3)': 'Return projection (month 3)',
       'Visitas mensuales estimadas': 'Estimated monthly visits', 'Pedidos estimados (conv. 2.5%)': 'Estimated orders (2.5% conv.)', 'Ticket medio': 'Average order value', 'Ingresos estimados': 'Estimated revenue', 'CAC objetivo (coste por cliente)': 'Target CAC (cost per customer)', 'ROAS global proyectado': 'Projected overall ROAS',
       '* Proyección conservadora basada en benchmarks del sector e-commerce de moda. Las métricas se revisan semanalmente y el presupuesto se reasigna hacia los canales con mejor ROAS.': '* Conservative projection based on fashion e-commerce benchmarks. Metrics are reviewed weekly and budget is reallocated to the channels with the best ROAS.',
+      // 20 · Acquisition model
+      '19 · Modelo de adquisición': '19 · Acquisition model',
+      'Análisis de sensibilidad': '<span>Sensitivity</span> analysis',
+      'Para conseguir 60 clientes al mes con un CAC de 10€ (600€ de inversión) y un 0,80% de conversión, ¿cuántos visitantes y qué CPC máximo necesitamos según la tasa de suscripción al newsletter?': 'To get 60 customers a month with a €10 CAC (€600 spend) and a 0.80% conversion rate, how many visitors and what maximum CPC do we need depending on the newsletter subscription rate?',
+      'CAC': 'CAC', 'Clientes': 'Customers', 'Conversión': 'Conversion', 'Inversión / mes': 'Monthly spend', '% suscripción newsletter': 'Newsletter subscription rate', 'Visitantes necesarios': 'Visitors needed', 'CPC medio necesario': 'Avg. CPC needed',
+      '💡 Conclusión': '💡 Takeaway',
+      'Cuanto mayor es la tasa de suscripción al newsletter, menos visitantes y menor CPC necesitamos para los mismos 60 clientes. El email reduce drásticamente el coste de adquisición y la dependencia del tráfico de pago.': 'The higher the newsletter subscription rate, the fewer visitors and the lower the CPC we need for the same 60 customers. Email dramatically lowers acquisition cost and reliance on paid traffic.',
+      '📐 Fórmulas': '📐 Formulas',
+      'Visitantes = clientes ÷ conversión ÷ % suscripción · CPC máx = inversión ÷ visitantes': 'Visitors = customers ÷ conversion ÷ subscription rate · Max CPC = spend ÷ visitors',
+      // 21 · Business model
+      '20 · Modelo de negocio': '20 · Business model',
+      'Unit economics & supuestos clave': 'Unit economics & <span>key assumptions</span>',
+      'Las cifras que sostienen la rentabilidad de GreenThread: de dónde sale el ingreso, qué margen dejamos y en cuántas compras recuperamos lo invertido en captar a un cliente.': 'The numbers behind GreenThread’s profitability: where revenue comes from, what margin we keep, and how many purchases it takes to recover what we spend acquiring a customer.',
+      'Supuestos clave': 'Key assumptions',
+      'Fórmula de ingresos por cliente': 'Revenue formula per customer',
+      'Supuesto': 'Assumption', 'Valor': 'Value', 'Razonamiento': 'Reasoning',
+      'Margen bruto': 'Gross margin', 'Costes fijos': 'Fixed costs', 'Ticket medio': 'Average order value', 'Recurrencia': 'Repeat rate',
+      '€4.000/mes': '€4,000/mo',
+      'Modelo D2C sin intermediarios; envío, devoluciones y producción reducen el margen total.': 'D2C model with no middlemen; shipping, returns and production lower the total margin.',
+      'Captación mixta: orgánico (SEO y redes), retargeting y referidos abaratan la media.': 'Mixed acquisition: organic (SEO and social), retargeting and referrals lower the average.',
+      'Operación lean: web, herramientas, packaging, atención y marketing base.': 'Lean operation: website, tools, packaging, support and base marketing.',
+      'Cesta media por pedido en básicos premium y ediciones limitadas.': 'Average basket per order across premium basics and limited editions.',
+      'Clientes que repiten compra gracias a la fidelización y el club de puntos.': 'Customers who repurchase thanks to loyalty and the points club.',
+      'Componente': 'Component', 'Cálculo': 'Calculation',
+      'Ticket medio (AOV)': 'Average order value (AOV)', 'Cesta por pedido': 'Basket per order',
+      'Compras por cliente': 'Purchases per customer', '1ª + recurrencia': '1st + repeat',
+      'Ingreso por cliente (LTV)': 'Revenue per customer (LTV)', 'Margen por cliente': 'Margin per customer',
+      'Con €42 de margen en el primer pedido (€70 × 60%) y un CAC de €12, recuperamos la inversión en la primera compra. Para cubrir los €4.000 de costes fijos necesitamos ≈ 95 pedidos al mes.': 'With €42 of margin on the first order (€70 × 60%) and a €12 CAC, we recover the investment on the very first purchase. To cover the €4,000 of fixed costs we need ≈ 95 orders a month.',
       // 18 · Calendar
       'Primer mes de ejecución': 'First month of <span>execution</span>',
       'Un plan semanal claro para lanzar la estrategia con orden, ritmo y aprendizaje continuo. Cada semana tiene un foco distinto que construye sobre la anterior, de la preparación a la optimización con datos.': 'A clear weekly plan to launch the strategy with order, rhythm and continuous learning. Each week has a distinct focus that builds on the previous one, from setup to data-driven optimization.',
@@ -1653,7 +1791,7 @@
       'Plan: escalar lo que funciona': '<strong>Plan:</strong> scale what works',
       'Plan: contenidos del mes 2': '<strong>Plan:</strong> month-2 content',
       // 19 · Challenges
-      '20 · Aprendizajes & Retos': '20 · Learnings & Challenges',
+      '22 · Aprendizajes & Retos': '22 · Learnings & Challenges',
       'Desafíos y cómo los resolvemos': 'Challenges & <span>how we solve them</span>',
       'Todo proyecto real implica decisiones difíciles. Estos son los principales retos de GreenThread y la decisión estratégica con la que respondemos a cada uno.': 'Every real project involves tough decisions. These are GreenThread’s main challenges and the strategic decision we respond to each one with.',
       'Tono de voz coherente': 'Consistent tone of voice', 'Presupuesto limitado': 'Limited budget', 'Confianza frente al greenwashing': 'Trust vs. greenwashing', 'Equilibrio valor vs. venta': 'Value vs. sales balance', 'Estacionalidad de la demanda': 'Seasonal demand', 'Logística y devoluciones': 'Logistics & returns',
@@ -1670,7 +1808,7 @@
       'Solución: calendario de campañas anticipado para fechas clave y foco en fidelización para los meses valle.': '<b>Solution:</b> a campaign calendar planned ahead for key dates and a loyalty focus for the trough months.',
       'Solución: guía de tallas detallada, fotos en modelos reales con medidas y atención proactiva.': '<b>Solution:</b> detailed size guide, photos on real models with measurements and proactive support.',
       // 20 · Conclusions
-      '21 · Conclusiones & Próximos pasos': '21 · Conclusions & Next steps',
+      '23 · Conclusiones & Próximos pasos': '23 · Conclusions & Next steps',
       'Hacia dónde vamos': 'Where we’re <span>going</span>',
       'El primer mes valida la estrategia; los siguientes la escalan. Este es el plan de crecimiento por fases y las tres ideas que sostienen todo el proyecto.': 'The first month validates the strategy; the following ones scale it. This is the phased growth plan and the three ideas that hold the whole project together.',
       'Mes 1–2': 'Month 1–2', 'Mes 3–6': 'Month 3–6', 'Mes 6–12': 'Month 6–12',
@@ -1700,7 +1838,7 @@
       'Alejandro Sánchez · Proyecto Final de Marketing Digital · Ironhack 2026': 'Alejandro Sánchez · Digital Marketing Final Project · Ironhack 2026'
     };
 
-    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link,.ctype h4,.ctype p,.plat .pt,.cad-row .cl,.cad-row .cv,.schema-item .sd,.code-card .ct,.sb-item .sbt,.sb-item .sbd';
+    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link,.ctype h4,.ctype p,.plat .pt,.cad-row .cl,.cad-row .cv,.schema-item .sd,.code-card .ct,.sb-item .sbt,.sb-item .sbd,.xls-head td:not(.rn),.model-card .mh,.model-card p,.bm-row .bm-k,.bm-row .bm-v,.bm-row .bm-r,.bm-frow > div,.bm-callout h4,.bm-callout p';
 
     const norm = s => s.replace(/\s+/g, ' ').trim();
     let i18nNodes = [];
