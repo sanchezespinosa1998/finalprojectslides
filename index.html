@@ -442,6 +442,11 @@
     .lang-opt.on { background: var(--green-light); color: var(--green-dark); }
     .lang-opt:hover:not(.on) { color: #fff; }
 
+    .landing-link { position: fixed; top: 14px; left: 16px; z-index: 1001; display: inline-flex; align-items: center; gap: 8px; background: var(--green-mid); color: #fff; border-radius: 999px; padding: 9px 17px; font-size: 12.5px; font-weight: 800; letter-spacing: .5px; text-decoration: none; box-shadow: 0 8px 22px rgba(0,0,0,.28); transition: background .2s, transform .2s; }
+    .landing-link:hover { background: var(--green-dark); transform: translateY(-2px); }
+    .s12 .closing-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; background: var(--green-light); color: var(--green-dark); font-weight: 800; font-size: 15px; padding: 14px 30px; border-radius: 999px; text-decoration: none; position: relative; z-index: 2; transition: background .2s, transform .2s; }
+    .s12 .closing-cta:hover { background: #fff; transform: translateY(-2px); }
+
     @media (max-width: 1000px) {
       .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid { grid-template-columns: 1fr; }
       .funnel-layout, .stack { grid-template-columns: 1fr; }
@@ -450,6 +455,8 @@
 </head>
 <body>
   <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+
+  <a class="landing-link" href="landing/index.html">🛍️ Ver la tienda</a>
 
   <div class="lang-toggle">
     <button class="lang-opt" data-lang="en">EN</button>
@@ -470,7 +477,7 @@
         <div class="s1-meta-item"><div class="lbl">Proyecto</div><div class="val">E-commerce de moda sostenible</div></div>
         <div class="s1-meta-item"><div class="lbl">Modelo</div><div class="val">D2C · Web propia</div></div>
         <div class="s1-meta-item"><div class="lbl">Canales</div><div class="val">Instagram · SEO · Email · Ads</div></div>
-        <div class="s1-meta-item"><div class="lbl">Presenta</div><div class="val">[Tu nombre]</div></div>
+        <div class="s1-meta-item"><div class="lbl">Presenta</div><div class="val">Alejandro</div></div>
       </div>
     </div>
 
@@ -1111,6 +1118,7 @@
         <span>Data-Driven</span>
       </div>
       <div class="thanks">¡Gracias!</div>
+      <a class="closing-cta" href="landing/index.html">🛍️ Ver la landing page →</a>
       <div class="contact">Alejandro Sánchez · Proyecto Final de Marketing Digital · Ironhack 2026</div>
     </div>
 
@@ -1158,7 +1166,7 @@
       'Construimos una marca de moda sostenible deseable, accesible y radicalmente transparente — y la llevamos al mercado con una estrategia digital de embudo completo, del descubrimiento a la fidelización.': 'We build a sustainable fashion brand that is desirable, accessible and radically transparent — and take it to market with a full-funnel digital strategy, from discovery to loyalty.',
       'Proyecto': 'Project', 'E-commerce de moda sostenible': 'Sustainable fashion e-commerce',
       'Modelo': 'Model', 'D2C · Web propia': 'D2C · Own website',
-      'Canales': 'Channels', 'Presenta': 'Presented by', '[Tu nombre]': '[Your name]',
+      'Canales': 'Channels', 'Presenta': 'Presented by', 'Alejandro': 'Alejandro',
       // 2 · Agenda
       'Índice': 'Index',
       'Hoja de ruta': 'Road<span>map</span>',
@@ -1481,10 +1489,12 @@
       'Del primer scroll a la primera compra, y de la primera compra a la recomendación: una estrategia de marketing digital pensada para acompañar y convertir en cada paso del viaje del cliente, con la sostenibilidad y la transparencia como ventaja competitiva real.': 'From the first scroll to the first purchase, and from the first purchase to advocacy: a digital marketing strategy designed to guide and convert at every step of the customer journey, with sustainability and transparency as a real competitive advantage.',
       'Marketing Digital': 'Digital Marketing', 'Moda Sostenible': 'Sustainable Fashion', 'Funnel Completo': 'Full Funnel',
       '¡Gracias!': 'Thank you!',
-      '[Tu nombre] · Proyecto Final de Marketing Digital · Ironhack 2026': 'Alejandro Sánchez · Digital Marketing Final Project · Ironhack 2026'
+      '🛍️ Ver la tienda': '🛍️ Visit the store',
+      '🛍️ Ver la landing page →': '🛍️ View the landing page →',
+      'Alejandro Sánchez · Proyecto Final de Marketing Digital · Ironhack 2026': 'Alejandro Sánchez · Digital Marketing Final Project · Ironhack 2026'
     };
 
-    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact';
+    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link';
 
     const norm = s => s.replace(/\s+/g, ' ').trim();
     let i18nNodes = [];

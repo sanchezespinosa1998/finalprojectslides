@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenThread — Conscious fashion. Style without compromise.</title>
+  <meta name="description" content="GreenThread — sustainable fashion that's desirable, accessible and radically transparent. Timeless pieces, certified materials, fair prices." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+    :root {
+      --green-dark: #133828;
+      --green-mid: #2d6a4f;
+      --green-light: #63c78d;
+      --green-glow: #7ee3a8;
+      --green-pale: #d7f5de;
+      --cream: #f7f3ea;
+      --cream-2: #efe9da;
+      --white: #ffffff;
+      --text-dark: #1f1f1f;
+      --text-mid: #565656;
+      --text-light: #8f8f8f;
+      --gold: #c8a34b;
+      --shadow: 0 12px 32px rgba(0,0,0,.08);
+      --shadow-lg: 0 24px 60px rgba(0,0,0,.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; color: var(--text-dark); background: var(--cream); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+    .serif { font-family: 'Playfair Display', serif; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 14px 26px; border-radius: 999px; cursor: pointer; border: none; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn-primary { background: var(--green-mid); color: #fff; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(19,56,40,.28); }
+    .btn-ghost { background: transparent; border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
+    .btn-ghost:hover { background: rgba(255,255,255,.1); }
+    .btn-dark { background: var(--green-dark); color: #fff; }
+    .btn-dark:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(247,243,234,.82); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--green-dark); display: flex; align-items: center; gap: 8px; }
+    .logo em { color: var(--green-mid); font-style: italic; }
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a { font-size: 14.5px; font-weight: 500; color: var(--text-mid); transition: color .2s; }
+    .nav-links a:hover { color: var(--green-mid); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle { display: flex; gap: 3px; background: rgba(45,106,79,.08); border-radius: 999px; padding: 3px; }
+    .lang-opt { border: none; background: transparent; color: var(--text-mid); font-size: 12px; font-weight: 800; letter-spacing: .5px; padding: 5px 11px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-opt.on { background: var(--green-mid); color: #fff; }
+    .burger { display: none; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--green-dark); }
+
+    /* Hero */
+    .hero { background: linear-gradient(150deg, #0c2018 0%, #123528 55%, #18402f 100%); color: #fff; position: relative; overflow: hidden; }
+    .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(99,199,141,.16), transparent 70%); }
+    .hero::before { width: 620px; height: 620px; top: -240px; right: -160px; }
+    .hero::after { width: 460px; height: 460px; bottom: -200px; left: -160px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding: clamp(50px, 8vh, 96px) 0; position: relative; z-index: 2; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green-light); border: 1px solid rgba(99,199,141,.3); background: rgba(99,199,141,.07); padding: 8px 16px; border-radius: 999px; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5.6vw, 68px); line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 20px; font-weight: 600; }
+    .hero h1 em { color: var(--green-light); font-style: italic; }
+    .hero p.lead { font-size: clamp(16px, 1.8vw, 19px); color: rgba(255,255,255,.78); max-width: 520px; margin-bottom: 32px; }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-stats { display: flex; gap: 34px; flex-wrap: wrap; }
+    .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--green-light); }
+    .hero-stat .lbl { font-size: 12.5px; color: rgba(255,255,255,.6); }
+    .hero-visual { position: relative; aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(160deg, #2d6a4f, #1a4332); box-shadow: var(--shadow-lg); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-visual .leaf { font-size: 120px; opacity: .9; filter: drop-shadow(0 10px 30px rgba(0,0,0,.3)); }
+    .hero-visual .tag { position: absolute; bottom: 18px; left: 18px; right: 18px; background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 14px 16px; }
+    .hero-visual .tag strong { display: block; font-size: 14px; }
+    .hero-visual .tag span { font-size: 12px; color: rgba(255,255,255,.7); }
+
+    /* Marquee / trust */
+    .trust { background: var(--green-dark); color: rgba(255,255,255,.7); }
+    .trust .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding: 18px 0; font-size: 13px; font-weight: 600; letter-spacing: .5px; }
+    .trust span { display: inline-flex; align-items: center; gap: 8px; }
+
+    /* Section shared */
+    section.block { padding: clamp(56px, 9vh, 100px) 0; }
+    .sec-tag { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green-mid); margin-bottom: 12px; display: block; }
+    .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -1px; color: var(--green-dark); font-weight: 600; }
+    .sec-title em { color: var(--green-mid); font-style: italic; }
+    .sec-intro { color: var(--text-mid); font-size: 16.5px; max-width: 620px; margin-top: 14px; }
+    .center { text-align: center; }
+    .center .sec-intro { margin-left: auto; margin-right: auto; }
+
+    /* Value props */
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 44px; }
+    .vcard { background: #fff; border-radius: 18px; padding: 26px 24px; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; }
+    .vcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .vcard .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+    .vcard h3 { font-size: 18px; color: var(--green-dark); margin-bottom: 8px; }
+    .vcard p { font-size: 14.5px; color: var(--text-mid); }
+
+    /* Products */
+    .products { background: #fff; }
+    .prod-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+    .prod { border-radius: 18px; overflow: hidden; background: var(--cream); box-shadow: var(--shadow); transition: transform .25s; }
+    .prod:hover { transform: translateY(-5px); }
+    .prod .ph { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 60px; position: relative; }
+    .prod .ph .fav { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.85); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .prod .ph .ribbon { position: absolute; top: 14px; left: 14px; background: var(--green-mid); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; }
+    .prod .p1 { background: linear-gradient(150deg, #d7f5de, #aee3c2); }
+    .prod .p2 { background: linear-gradient(150deg, #e7ddc8, #d3c39c); }
+    .prod .p3 { background: linear-gradient(150deg, #cfe0e8, #a9c4d4); }
+    .prod .p4 { background: linear-gradient(150deg, #e9d4cf, #d3a9a0); }
+    .prod .p5 { background: linear-gradient(150deg, #d9d3ea, #b6abdf); }
+    .prod .p6 { background: linear-gradient(150deg, #e3e8cf, #c2cf9c); }
+    .prod .info { padding: 18px 20px; }
+    .prod .cat { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--green-mid); }
+    .prod h4 { font-size: 17px; color: var(--text-dark); margin: 4px 0 6px; }
+    .prod .meta { display: flex; align-items: center; justify-content: space-between; }
+    .prod .price { font-weight: 800; font-size: 17px; color: var(--green-dark); }
+    .prod .stars { font-size: 12px; color: var(--gold); }
+    .prod .add { width: 100%; margin-top: 14px; background: var(--green-dark); color: #fff; border: none; border-radius: 999px; padding: 11px; font-weight: 700; font-size: 13.5px; cursor: pointer; transition: background .2s; }
+    .prod .add:hover { background: var(--green-mid); }
+
+    /* Sustainability split */
+    .sustain { background: linear-gradient(150deg, #123528, #0f1d15); color: #fff; }
+    .sustain-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 48px; align-items: center; }
+    .sustain .visual { aspect-ratio: 5/4; border-radius: 22px; background: linear-gradient(160deg, #1d4a36, #0e2419); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 22px; }
+    .sustain .visual .cell { border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 14px; }
+    .sustain .visual .cell .big { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--green-light); font-weight: 700; }
+    .sustain .visual .cell .sm { font-size: 12px; color: rgba(255,255,255,.66); }
+    .sustain .sec-tag { color: var(--green-light); }
+    .sustain .sec-title { color: #fff; }
+    .sustain .sec-title em { color: var(--green-light); }
+    .sustain ul { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .sustain li { display: flex; gap: 12px; font-size: 15.5px; color: rgba(255,255,255,.82); }
+    .sustain li .check { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: rgba(99,199,141,.18); color: var(--green-glow); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+
+    /* Steps */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+    .step { position: relative; padding-top: 12px; }
+    .step .n { font-family: 'Playfair Display', serif; font-size: 46px; color: var(--green-pale); font-weight: 700; line-height: 1; }
+    .step h3 { font-size: 19px; color: var(--green-dark); margin: 8px 0; }
+    .step p { font-size: 14.5px; color: var(--text-mid); }
+
+    /* Testimonials */
+    .testi { background: #fff; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+    .quote-card { background: var(--cream); border-radius: 18px; padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+    .quote-card .stars { color: var(--gold); font-size: 14px; }
+    .quote-card p { font-size: 15px; color: var(--text-dark); font-style: italic; }
+    .quote-card .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .quote-card .av { width: 42px; height: 42px; border-radius: 50%; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .quote-card .who strong { font-size: 14px; display: block; }
+    .quote-card .who span { font-size: 12.5px; color: var(--text-light); }
+
+    /* Newsletter / CTA */
+    .news { background: linear-gradient(150deg, #2d6a4f, #133828); color: #fff; border-radius: 28px; padding: clamp(36px, 6vw, 64px); text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .news::before { content: ''; position: absolute; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(99,199,141,.18), transparent 70%); top: -200px; left: 50%; transform: translateX(-50%); }
+    .news-inner { position: relative; z-index: 2; }
+    .news .sec-tag { color: var(--green-light); }
+    .news h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.4vw, 40px); margin-bottom: 12px; font-weight: 600; }
+    .news p { color: rgba(255,255,255,.78); max-width: 480px; margin: 0 auto 26px; font-size: 16px; }
+    .news form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
+    .news input { flex: 1; min-width: 200px; border: none; border-radius: 999px; padding: 14px 22px; font-size: 15px; font-family: inherit; }
+    .news input:focus { outline: 2px solid var(--green-light); }
+    .news .fineprint { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 16px; }
+    .news .btn-light { background: var(--green-glow); color: var(--green-dark); }
+    .news .btn-light:hover { background: #fff; transform: translateY(-2px); }
+
+    /* Footer */
+    footer { background: #0d1f17; color: rgba(255,255,255,.66); padding: 56px 0 28px; }
+    .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 32px; }
+    .foot-brand .logo { color: #fff; margin-bottom: 14px; }
+    .foot-brand p { font-size: 14px; max-width: 280px; }
+    .foot-soc { display: flex; gap: 10px; margin-top: 16px; }
+    .foot-soc a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background .2s; }
+    .foot-soc a:hover { background: var(--green-mid); }
+    .foot-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: #fff; margin-bottom: 16px; }
+    .foot-col a { display: block; font-size: 14px; margin-bottom: 10px; transition: color .2s; }
+    .foot-col a:hover { color: var(--green-light); }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: rgba(255,255,255,.45); }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .burger { display: block; }
+      .hero-grid, .sustain-grid { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 420px; }
+      .values-grid, .prod-grid, .steps-grid, .testi-grid, .foot-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .values-grid, .prod-grid, .steps-grid, .testi-grid, .foot-grid { grid-template-columns: 1fr; }
+      .trust .wrap { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="wrap nav">
+      <a href="#" class="logo">🌿 Green<em>Thread</em></a>
+      <nav class="nav-links">
+        <a href="#shop" data-i18n>Shop</a>
+        <a href="#values" data-i18n>Why us</a>
+        <a href="#sustainability" data-i18n>Sustainability</a>
+        <a href="#reviews" data-i18n>Reviews</a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang-toggle">
+          <button class="lang-opt on" data-lang="en">EN</button>
+          <button class="lang-opt" data-lang="es">ES</button>
+        </div>
+        <a href="#newsletter" class="btn btn-dark" data-i18n>Shop now</a>
+        <button class="burger" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-badge" data-i18n>🌿 Sustainable fashion · Made to last</div>
+        <h1 data-i18n>Conscious fashion.<br><em>Style</em> without compromise.</h1>
+        <p class="lead" data-i18n>Timeless pieces, certified materials and full traceability — at a fair price. The first store where dressing sustainably doesn't cost you more, not in money, not in style.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn btn-primary" data-i18n>Explore the collection →</a>
+          <a href="#sustainability" class="btn btn-ghost" data-i18n>Our impact</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">100%</div><div class="lbl" data-i18n>Certified materials</div></div>
+          <div class="hero-stat"><div class="num">+12k</div><div class="lbl" data-i18n>Happy customers</div></div>
+          <div class="hero-stat"><div class="num">4.9★</div><div class="lbl" data-i18n>Average rating</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="leaf">🌿</div>
+        <div class="tag">
+          <strong data-i18n>Organic cotton · GOTS</strong>
+          <span data-i18n>Traceable from field to wardrobe.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BAR ===== -->
+  <div class="trust">
+    <div class="wrap">
+      <span data-i18n>🌱 GOTS organic cotton</span>
+      <span data-i18n>♻️ Recycled packaging</span>
+      <span data-i18n>🚚 Free shipping over €60</span>
+      <span data-i18n>↩️ 30-day free returns</span>
+      <span data-i18n>🔎 Full traceability</span>
+    </div>
+  </div>
+
+  <!-- ===== VALUES ===== -->
+  <section class="block" id="values">
+    <div class="wrap center reveal">
+      <span class="sec-tag" data-i18n>Why GreenThread</span>
+      <h2 class="sec-title" data-i18n>Better fashion, <em>without the trade-offs</em></h2>
+      <p class="sec-intro" data-i18n>We broke the triangle of objections — expensive, boring, unreliable — that has held sustainable fashion back. This is how.</p>
+    </div>
+    <div class="wrap values-grid reveal">
+      <div class="vcard"><div class="ic">💎</div><h3 data-i18n>Desirable design</h3><p data-i18n>Current, timeless pieces you'll actually want to wear — not "eco sack clothing".</p></div>
+      <div class="vcard"><div class="ic">🏷️</div><h3 data-i18n>Honest price</h3><p data-i18n>A direct-to-consumer model with no middlemen lowers cost without sacrificing quality.</p></div>
+      <div class="vcard"><div class="ic">🔎</div><h3 data-i18n>Real transparency</h3><p data-i18n>Certified materials and visible traceability on every single product.</p></div>
+      <div class="vcard"><div class="ic">♻️</div><h3 data-i18n>Low impact</h3><p data-i18n>On-demand production in small capsules and recycled, recyclable packaging.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="block products" id="shop">
+    <div class="wrap prod-head reveal">
+      <div>
+        <span class="sec-tag" data-i18n>The collection</span>
+        <h2 class="sec-title" data-i18n>Best-<em>sellers</em></h2>
+      </div>
+      <a href="#newsletter" class="btn btn-dark" data-i18n>View all →</a>
+    </div>
+    <div class="wrap prod-grid reveal">
+      <div class="prod">
+        <div class="ph p1"><span class="ribbon" data-i18n>Best-seller</span><span class="fav">♡</span>👕</div>
+        <div class="info"><div class="cat" data-i18n>Essentials</div><h4 data-i18n>Organic Cotton Tee</h4>
+          <div class="meta"><span class="price">€34</span><span class="stars">★★★★★ <span data-i18n>(212)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="ph p2"><span class="fav">♡</span>🧥</div>
+        <div class="info"><div class="cat" data-i18n>Outerwear</div><h4 data-i18n>Recycled Wool Coat</h4>
+          <div class="meta"><span class="price">€129</span><span class="stars">★★★★★ <span data-i18n>(86)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="ph p3"><span class="ribbon" data-i18n>New</span><span class="fav">♡</span>👖</div>
+        <div class="info"><div class="cat" data-i18n>Bottoms</div><h4 data-i18n>Tencel™ Wide Trousers</h4>
+          <div class="meta"><span class="price">€72</span><span class="stars">★★★★☆ <span data-i18n>(54)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="ph p4"><span class="fav">♡</span>👗</div>
+        <div class="info"><div class="cat" data-i18n>Dresses</div><h4 data-i18n>Linen Midi Dress</h4>
+          <div class="meta"><span class="price">€89</span><span class="stars">★★★★★ <span data-i18n>(141)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="ph p5"><span class="fav">♡</span>🧶</div>
+        <div class="info"><div class="cat" data-i18n>Knitwear</div><h4 data-i18n>Merino Knit Jumper</h4>
+          <div class="meta"><span class="price">€95</span><span class="stars">★★★★★ <span data-i18n>(98)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="ph p6"><span class="ribbon" data-i18n>Gift</span><span class="fav">♡</span>🧣</div>
+        <div class="info"><div class="cat" data-i18n>Accessories</div><h4 data-i18n>Organic Cotton Scarf</h4>
+          <div class="meta"><span class="price">€28</span><span class="stars">★★★★★ <span data-i18n>(173)</span></span></div>
+          <button class="add" data-i18n>Add to cart</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUSTAINABILITY ===== -->
+  <section class="block sustain" id="sustainability">
+    <div class="wrap sustain-grid reveal">
+      <div class="visual">
+        <div class="cell"><div class="big">-62%</div><div class="sm" data-i18n>Less water vs. conventional cotton</div></div>
+        <div class="cell"><div class="big">100%</div><div class="sm" data-i18n>Recycled & recyclable packaging</div></div>
+        <div class="cell"><div class="big">0</div><div class="sm" data-i18n>Dead stock — made on demand</div></div>
+        <div class="cell"><div class="big">GOTS</div><div class="sm" data-i18n>Certified organic materials</div></div>
+      </div>
+      <div>
+        <span class="sec-tag" data-i18n>Our impact</span>
+        <h2 class="sec-title" data-i18n>Transparency, <em>not greenwashing</em></h2>
+        <p class="sec-intro" style="color:rgba(255,255,255,.78)" data-i18n>Fast fashion produces 10% of global CO₂ emissions. We do the opposite: produce less, produce better, and show our work.</p>
+        <ul>
+          <li><span class="check">✓</span><span data-i18n>Every garment includes a traceability sheet: where and by whom it was made.</span></li>
+          <li><span class="check">✓</span><span data-i18n>On-demand production in small capsules to avoid overproduction.</span></li>
+          <li><span class="check">✓</span><span data-i18n>Certified materials: GOTS organic cotton, Tencel™ and recycled polyester.</span></li>
+          <li><span class="check">✓</span><span data-i18n>Pieces designed to last years, not seasons.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="block" id="how">
+    <div class="wrap center reveal">
+      <span class="sec-tag" data-i18n>How it works</span>
+      <h2 class="sec-title" data-i18n>Conscious shopping in <em>three steps</em></h2>
+    </div>
+    <div class="wrap steps-grid reveal">
+      <div class="step"><div class="n">01</div><h3 data-i18n>Choose your piece</h3><p data-i18n>Browse timeless designs with clear info on materials, sizing and origin.</p></div>
+      <div class="step"><div class="n">02</div><h3 data-i18n>We make it for you</h3><p data-i18n>On-demand production means less waste and a garment made to last.</p></div>
+      <div class="step"><div class="n">03</div><h3 data-i18n>Wear it for years</h3><p data-i18n>Care guides, easy returns and a loyalty club that rewards you for staying.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="block testi" id="reviews">
+    <div class="wrap center reveal">
+      <span class="sec-tag" data-i18n>Loved by our community</span>
+      <h2 class="sec-title" data-i18n>What our <em>customers say</em></h2>
+    </div>
+    <div class="wrap testi-grid reveal">
+      <div class="quote-card">
+        <div class="stars">★★★★★</div>
+        <p data-i18n>"Finally a sustainable brand that looks good and doesn't cost a fortune. The quality is unreal."</p>
+        <div class="who"><div class="av">👩</div><div><strong>Laura M.</strong><span data-i18n>Madrid · Verified buyer</span></div></div>
+      </div>
+      <div class="quote-card">
+        <div class="stars">★★★★★</div>
+        <p data-i18n>"Fast, clear and reliable. The traceability sheet won me over — you can tell they have nothing to hide."</p>
+        <div class="who"><div class="av">🧑</div><div><strong>Carlos R.</strong><span data-i18n>Valencia · Verified buyer</span></div></div>
+      </div>
+      <div class="quote-card">
+        <div class="stars">★★★★★</div>
+        <p data-i18n>"I bought a scarf as a gift and the packaging was beautiful. It felt meaningful, not generic."</p>
+        <div class="who"><div class="av">🎁</div><div><strong>Sofía L.</strong><span data-i18n>Barcelona · Verified buyer</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER / CTA ===== -->
+  <section class="block" id="newsletter">
+    <div class="wrap">
+      <div class="news reveal">
+        <div class="news-inner">
+          <span class="sec-tag" data-i18n>Join the movement</span>
+          <h2 data-i18n>Get 10% off your first order</h2>
+          <p data-i18n>Subscribe and receive our free guide "10 steps to dress better for less" — plus early access to new collections.</p>
+          <form onsubmit="event.preventDefault(); this.reset(); this.querySelector('.msg').textContent = LANG==='es' ? '¡Gracias! Revisa tu correo.' : 'Thanks! Check your inbox.';">
+            <input type="email" required placeholder="you@email.com" data-i18n-ph="you@email.com" />
+            <button type="submit" class="btn btn-light" data-i18n>Get my 10% →</button>
+            <div class="msg" style="width:100%;color:var(--green-glow);font-size:14px;font-weight:600;"></div>
+          </form>
+          <p class="fineprint" data-i18n>No spam. Unsubscribe anytime. We respect your data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <div class="logo">🌿 Green<em>Thread</em></div>
+        <p data-i18n>Sustainable fashion that's desirable, accessible and radically transparent. Style without compromise.</p>
+        <div class="foot-soc">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="TikTok">🎵</a>
+          <a href="#" aria-label="Pinterest">📌</a>
+          <a href="#" aria-label="Email">✉️</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n>Shop</h4>
+        <a href="#shop" data-i18n>Essentials</a>
+        <a href="#shop" data-i18n>Outerwear</a>
+        <a href="#shop" data-i18n>Accessories</a>
+        <a href="#shop" data-i18n>Gift cards</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n>Company</h4>
+        <a href="#sustainability" data-i18n>Our impact</a>
+        <a href="#values" data-i18n>About us</a>
+        <a href="#reviews" data-i18n>Reviews</a>
+        <a href="../index.html" data-i18n>Marketing plan</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n>Help</h4>
+        <a href="#" data-i18n>Shipping & returns</a>
+        <a href="#" data-i18n>Size guide</a>
+        <a href="#" data-i18n>Contact</a>
+        <a href="#" data-i18n>FAQ</a>
+      </div>
+    </div>
+    <div class="wrap foot-bottom">
+      <span>© 2026 GreenThread · <span data-i18n>All rights reserved.</span></span>
+      <span data-i18n>Made with care for people and planet.</span>
+    </div>
+  </footer>
+
+  <script>
+    /* ====== Bilingual engine — English is the default ====== */
+    let LANG = 'en';
+    const DICT = {
+      'Shop': 'Tienda', 'Why us': 'Por qué', 'Sustainability': 'Sostenibilidad', 'Reviews': 'Opiniones',
+      'Shop now': 'Comprar', 'View all →': 'Ver todo →',
+      '🌿 Sustainable fashion · Made to last': '🌿 Moda sostenible · Hecha para durar',
+      'Conscious fashion.<br><em>Style</em> without compromise.': 'Moda consciente.<br><em>Estilo</em> sin compromiso.',
+      'Timeless pieces, certified materials and full traceability — at a fair price. The first store where dressing sustainably doesn’t cost you more, not in money, not in style.': 'Piezas atemporales, materiales certificados y trazabilidad total — a un precio justo. La primera tienda donde vestir sostenible no te cuesta más, ni en dinero ni en estilo.',
+      'Explore the collection →': 'Explora la colección →', 'Our impact': 'Nuestro impacto',
+      'Certified materials': 'Materiales certificados', 'Happy customers': 'Clientas felices', 'Average rating': 'Valoración media',
+      'Organic cotton · GOTS': 'Algodón orgánico · GOTS', 'Traceable from field to wardrobe.': 'Trazable del campo a tu armario.',
+      '🌱 GOTS organic cotton': '🌱 Algodón orgánico GOTS', '♻️ Recycled packaging': '♻️ Packaging reciclado',
+      '🚚 Free shipping over €60': '🚚 Envío gratis desde 60€', '↩️ 30-day free returns': '↩️ Devolución gratis 30 días', '🔎 Full traceability': '🔎 Trazabilidad total',
+      'Why GreenThread': 'Por qué GreenThread', 'Better fashion, <em>without the trade-offs</em>': 'Mejor moda, <em>sin renuncias</em>',
+      'We broke the triangle of objections — expensive, boring, unreliable — that has held sustainable fashion back. This is how.': 'Rompimos el triángulo de objeciones — cara, aburrida, poco fiable — que frenaba a la moda sostenible. Así lo hacemos.',
+      'Desirable design': 'Diseño deseable', 'Current, timeless pieces you’ll actually want to wear — not "eco sack clothing".': 'Piezas actuales y atemporales que de verdad querrás llevar, no “ropa de saco ecológica”.',
+      'Honest price': 'Precio honesto', 'A direct-to-consumer model with no middlemen lowers cost without sacrificing quality.': 'Un modelo directo al consumidor sin intermediarios abarata sin renunciar a calidad.',
+      'Real transparency': 'Transparencia real', 'Certified materials and visible traceability on every single product.': 'Materiales certificados y trazabilidad visible en cada producto.',
+      'Low impact': 'Bajo impacto', 'On-demand production in small capsules and recycled, recyclable packaging.': 'Producción bajo demanda en cápsulas pequeñas y packaging reciclado y reciclable.',
+      'The collection': 'La colección', 'Best-<em>sellers</em>': 'Más <em>vendidos</em>',
+      'Best-seller': 'Top ventas', 'New': 'Nuevo', 'Gift': 'Regalo',
+      'Essentials': 'Básicos', 'Outerwear': 'Abrigos', 'Bottoms': 'Pantalones', 'Dresses': 'Vestidos', 'Knitwear': 'Punto', 'Accessories': 'Accesorios',
+      'Organic Cotton Tee': 'Camiseta de algodón orgánico', 'Recycled Wool Coat': 'Abrigo de lana reciclada', 'Tencel™ Wide Trousers': 'Pantalón ancho Tencel™',
+      'Linen Midi Dress': 'Vestido midi de lino', 'Merino Knit Jumper': 'Jersey de punto merino', 'Organic Cotton Scarf': 'Bufanda de algodón orgánico',
+      '(212)': '(212)', '(86)': '(86)', '(54)': '(54)', '(141)': '(141)', '(98)': '(98)', '(173)': '(173)',
+      'Add to cart': 'Añadir al carrito',
+      'Less water vs. conventional cotton': 'Menos agua que el algodón convencional', 'Recycled & recyclable packaging': 'Packaging reciclado y reciclable',
+      'Dead stock — made on demand': 'Stock muerto — producción bajo demanda', 'Certified organic materials': 'Materiales orgánicos certificados',
+      'Transparency, <em>not greenwashing</em>': 'Transparencia, <em>no greenwashing</em>',
+      'Fast fashion produces 10% of global CO₂ emissions. We do the opposite: produce less, produce better, and show our work.': 'La moda rápida genera el 10% de las emisiones globales de CO₂. Nosotros hacemos lo contrario: producir menos, producir mejor y enseñarlo todo.',
+      'Every garment includes a traceability sheet: where and by whom it was made.': 'Cada prenda incluye su ficha de trazabilidad: dónde y por quién fue fabricada.',
+      'On-demand production in small capsules to avoid overproduction.': 'Producción bajo demanda en cápsulas pequeñas para evitar la sobreproducción.',
+      'Certified materials: GOTS organic cotton, Tencel™ and recycled polyester.': 'Materiales certificados: algodón orgánico GOTS, Tencel™ y poliéster reciclado.',
+      'Pieces designed to last years, not seasons.': 'Prendas diseñadas para durar años, no temporadas.',
+      'How it works': 'Cómo funciona', 'Conscious shopping in <em>three steps</em>': 'Compra consciente en <em>tres pasos</em>',
+      'Choose your piece': 'Elige tu prenda', 'Browse timeless designs with clear info on materials, sizing and origin.': 'Explora diseños atemporales con info clara de materiales, tallas y origen.',
+      'We make it for you': 'La fabricamos para ti', 'On-demand production means less waste and a garment made to last.': 'La producción bajo demanda reduce el residuo y crea una prenda que dura.',
+      'Wear it for years': 'Llévala durante años', 'Care guides, easy returns and a loyalty club that rewards you for staying.': 'Guías de cuidado, devoluciones fáciles y un club de fidelidad que te premia.',
+      'Loved by our community': 'Querida por nuestra comunidad', 'What our <em>customers say</em>': 'Lo que dicen <em>nuestras clientas</em>',
+      '"Finally a sustainable brand that looks good and doesn’t cost a fortune. The quality is unreal."': '“Por fin una marca sostenible que se ve bien y no cuesta una fortuna. La calidad es brutal.”',
+      'Madrid · Verified buyer': 'Madrid · Compra verificada',
+      '"Fast, clear and reliable. The traceability sheet won me over — you can tell they have nothing to hide."': '“Rápido, claro y fiable. La ficha de trazabilidad me convenció: se nota que no esconden nada.”',
+      'Valencia · Verified buyer': 'Valencia · Compra verificada',
+      '"I bought a scarf as a gift and the packaging was beautiful. It felt meaningful, not generic."': '“Compré una bufanda de regalo y el packaging era precioso. Se sintió con significado, no genérico.”',
+      'Barcelona · Verified buyer': 'Barcelona · Compra verificada',
+      'Join the movement': 'Únete al movimiento', 'Get 10% off your first order': 'Consigue un 10% en tu primera compra',
+      'Subscribe and receive our free guide "10 steps to dress better for less" — plus early access to new collections.': 'Suscríbete y recibe nuestra guía gratuita “10 pasos para vestir mejor gastando menos” — y acceso anticipado a nuevas colecciones.',
+      'Get my 10% →': 'Quiero mi 10% →', 'No spam. Unsubscribe anytime. We respect your data.': 'Sin spam. Cancela cuando quieras. Respetamos tus datos.',
+      'Sustainable fashion that’s desirable, accessible and radically transparent. Style without compromise.': 'Moda sostenible deseable, accesible y radicalmente transparente. Estilo sin compromiso.',
+      'Company': 'Empresa', 'About us': 'Sobre nosotros', 'Marketing plan': 'Plan de marketing',
+      'Gift cards': 'Tarjetas regalo', 'Help': 'Ayuda', 'Shipping & returns': 'Envíos y devoluciones', 'Size guide': 'Guía de tallas', 'Contact': 'Contacto', 'FAQ': 'Preguntas frecuentes',
+      'All rights reserved.': 'Todos los derechos reservados.', 'Made with care for people and planet.': 'Hecho con cuidado por las personas y el planeta.'
+    };
+
+    const i18nEls = [...document.querySelectorAll('[data-i18n]')].map(el => ({ el, en: el.innerHTML }));
+    const phEls = [...document.querySelectorAll('[data-i18n-ph]')].map(el => ({ el, en: el.getAttribute('placeholder') }));
+
+    function applyLang() {
+      i18nEls.forEach(o => { o.el.innerHTML = (LANG === 'es' && DICT[o.en] != null) ? DICT[o.en] : o.en; });
+      phEls.forEach(o => { o.el.setAttribute('placeholder', LANG === 'es' ? (o.en === 'you@email.com' ? 'tu@email.com' : o.en) : o.en); });
+      document.documentElement.lang = LANG;
+      document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
+    }
+    document.querySelectorAll('.lang-opt').forEach(b => b.addEventListener('click', () => { LANG = b.dataset.lang; applyLang(); }));
+
+    /* ====== Scroll reveal ====== */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    applyLang();
+  </script>
+</body>
+</html>

@@ -6,7 +6,11 @@
       "Bash(node _serve.js)",
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_evaluate",
-      "Bash(cd \"/d/IRONHACK/poryecto final\" && rm -f _serve.js && echo \"cleaned\")"
+      "Bash(cd \"/d/IRONHACK/poryecto final\" && rm -f _serve.js && echo \"cleaned\")",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(rm -f _serve.js landing-full.jpeg)",
+      "Bash(rm -rf .playwright-mcp)",
+      "Read(//d/d/IRONHACK/poryecto final/**)"
     ],
     "additionalDirectories": [
       "d:\\d\\IRONHACK\\poryecto final"
