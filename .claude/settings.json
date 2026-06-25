@@ -11,7 +11,10 @@
       "Bash(rm -f _serve.js landing-full.jpeg)",
       "Bash(rm -rf .playwright-mcp)",
       "Read(//d/d/IRONHACK/poryecto final/**)",
-      "Bash(rm -f _serve.js)"
+      "Bash(rm -f _serve.js)",
+      "Bash(rm -f _serve.js social-slide.jpeg)",
+      "Bash(node -e ' *)",
+      "Bash(rm -f _serve.js schema-slide.jpeg)"
     ],
     "additionalDirectories": [
       "d:\\d\\IRONHACK\\poryecto final"

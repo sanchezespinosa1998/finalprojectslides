@@ -437,10 +437,68 @@
     .dot { width: 6px; height: 6px; background: rgba(255,255,255,.24); border-radius: 999px; cursor: pointer; transition: width .3s, background .3s; }
     .dot.on { width: 18px; background: var(--green-light); }
 
+    /* ---------- Slide navigation menu ---------- */
+    .menu-btn { background: rgba(255,255,255,.08); border: none; color: #fff; height: 34px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; transition: background .2s, color .2s; }
+    .menu-btn:hover { background: var(--green-light); color: var(--green-dark); }
+    .slide-menu { position: fixed; inset: 0; z-index: 1200; display: none; }
+    .slide-menu.open { display: block; }
+    .slide-menu .backdrop { position: absolute; inset: 0; background: rgba(5,10,8,.74); backdrop-filter: blur(6px); animation: fadein .2s ease; }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+    .slide-menu .panel { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(900px, 92vw); max-height: 84vh; overflow-y: auto; background: #0f1d15; border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 28px; box-shadow: 0 30px 80px rgba(0,0,0,.55); scrollbar-width: thin; scrollbar-color: rgba(99,199,141,.4) transparent; }
+    .slide-menu .panel h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 23px; margin-bottom: 4px; font-weight: 600; }
+    .slide-menu .pm-sub { color: rgba(255,255,255,.5); font-size: 13px; margin-bottom: 20px; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .menu-item { display: flex; align-items: center; gap: 11px; text-align: left; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 11px 14px; cursor: pointer; transition: background .2s, border-color .2s, transform .2s; color: rgba(255,255,255,.82); font-size: 13.5px; font-family: inherit; }
+    .menu-item:hover { background: rgba(99,199,141,.12); border-color: rgba(99,199,141,.35); transform: translateY(-2px); }
+    .menu-item.current { background: rgba(99,199,141,.18); border-color: var(--green-light); }
+    .menu-item .mi-num { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--green-light); min-width: 26px; font-size: 15px; }
+    .pm-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: rgba(255,255,255,.6); font-size: 26px; line-height: 1; cursor: pointer; }
+    .pm-close:hover { color: #fff; }
+    @media (max-width: 760px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .menu-grid { grid-template-columns: 1fr; } .menu-btn span { display: none; } }
+
     .lang-toggle { position: fixed; top: 14px; right: 16px; z-index: 1001; display: flex; gap: 4px; background: rgba(0,0,0,.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 4px; }
     .lang-opt { border: none; background: transparent; color: rgba(255,255,255,.6); font-size: 12px; font-weight: 800; letter-spacing: .5px; padding: 6px 13px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
     .lang-opt.on { background: var(--green-light); color: var(--green-dark); }
     .lang-opt:hover:not(.on) { color: #fff; }
+
+    /* ---------- Social content ---------- */
+    .s-social { background: linear-gradient(140deg, #0e1626 0%, #1a2742 100%); }
+    .ctype-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; margin-bottom: 18px; }
+    .ctype { background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; transition: transform .25s, border-color .25s; }
+    .ctype:hover { transform: translateY(-3px); border-color: rgba(99,199,141,.32); }
+    .ctype .ci { font-size: 24px; display: block; margin-bottom: 8px; }
+    .ctype h4 { font-size: 15px; color: #fff; margin-bottom: 6px; }
+    .ctype p { font-size: 13px; color: rgba(255,255,255,.66); line-height: 1.5; }
+    .social-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .plat { display: flex; gap: 11px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .plat:last-child { border-bottom: none; padding-bottom: 0; }
+    .plat .pi { font-size: 19px; flex-shrink: 0; line-height: 1.4; }
+    .plat .pt { font-size: 13.5px; color: rgba(255,255,255,.74); line-height: 1.5; }
+    .plat .pt strong { color: #fff; }
+    .cad { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
+    .cad-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(255,255,255,.04); border-radius: 9px; padding: 9px 13px; }
+    .cad-row .cl { font-size: 13px; color: rgba(255,255,255,.8); }
+    .cad-row .cv { font-size: 12px; font-weight: 800; color: var(--green-light); background: rgba(99,199,141,.12); border-radius: 999px; padding: 4px 11px; white-space: nowrap; }
+
+    /* ---------- Schema markup ---------- */
+    .s-schema { background: linear-gradient(140deg, #0b1418 0%, #102a2a 100%); }
+    .schema-cols { display: grid; grid-template-columns: 1fr 1.08fr; gap: 18px; }
+    .schema-list { display: flex; flex-direction: column; gap: 10px; }
+    .schema-item { display: flex; gap: 12px; align-items: flex-start; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 12px 14px; transition: border-color .2s; }
+    .schema-item:hover { border-color: rgba(99,199,141,.3); }
+    .schema-item .si { font-size: 20px; flex-shrink: 0; line-height: 1.3; }
+    .schema-item h4 { font-size: 14px; color: #fff; margin-bottom: 2px; font-family: 'SFMono-Regular', Consolas, monospace; letter-spacing: -.2px; }
+    .schema-item .sd { font-size: 12.5px; color: rgba(255,255,255,.66); line-height: 1.45; }
+    .code-card { background: #08110f; border: 1px solid rgba(99,199,141,.18); border-radius: 14px; padding: 16px 18px; overflow-x: auto; }
+    .code-card .ct { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--green-light); margin-bottom: 11px; }
+    .code-card pre { font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace; font-size: 12px; line-height: 1.55; color: #cfe9d8; white-space: pre; margin: 0; }
+    .code-card pre .t { color: #8fb8ff; }
+    .code-card pre .s { color: #e3cd8f; }
+    .schema-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .sb-item { background: rgba(99,199,141,.07); border: 1px solid rgba(99,199,141,.16); border-radius: 12px; padding: 13px; }
+    .sb-item .sbt { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+    .sb-item .sbd { font-size: 11.5px; color: rgba(255,255,255,.64); line-height: 1.42; }
 
     .landing-link { position: fixed; top: 14px; left: 16px; z-index: 1001; display: inline-flex; align-items: center; gap: 8px; background: var(--green-mid); color: #fff; border-radius: 999px; padding: 9px 17px; font-size: 12.5px; font-weight: 800; letter-spacing: .5px; text-decoration: none; box-shadow: 0 8px 22px rgba(0,0,0,.28); transition: background .2s, transform .2s; }
     .landing-link:hover { background: var(--green-dark); transform: translateY(-2px); }
@@ -448,7 +506,7 @@
     .s12 .closing-cta:hover { background: #fff; transform: translateY(-2px); }
 
     @media (max-width: 1000px) {
-      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid { grid-template-columns: 1fr; }
+      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid, .ctype-grid, .social-cols, .schema-cols, .schema-benefits { grid-template-columns: 1fr; }
       .funnel-layout, .stack { grid-template-columns: 1fr; }
     }
   </style>
@@ -513,16 +571,16 @@
             <li><span class="n">10</span> Funnel TOFU</li>
             <li><span class="n">11</span> Funnel MOFU</li>
             <li><span class="n">12</span> Funnel BOFU</li>
-            <li><span class="n">13</span> Fidelización · 14 Creatividades · 15 Email</li>
+            <li><span class="n">13</span> Fidelización · 14 Creatividades · 15 Redes · 16 Email · 17 Schema</li>
           </ol>
         </div>
         <div class="agenda-block">
           <div class="ab-head">④ Medición</div>
           <ol>
-            <li><span class="n">16</span> KPIs y presupuesto</li>
-            <li><span class="n">17</span> Calendario de ejecución</li>
-            <li><span class="n">18</span> Retos y aprendizajes</li>
-            <li><span class="n">19</span> Conclusiones y próximos pasos</li>
+            <li><span class="n">18</span> KPIs y presupuesto</li>
+            <li><span class="n">19</span> Calendario de ejecución</li>
+            <li><span class="n">20</span> Retos y aprendizajes</li>
+            <li><span class="n">21</span> Conclusiones y próximos pasos</li>
           </ol>
         </div>
       </div>
@@ -936,10 +994,57 @@
       </div>
     </div>
 
-    <!-- ===== 16 · EMAIL AUTOMATION ===== -->
+    <!-- ===== 16 · CONTENIDO EN REDES ===== -->
+    <div class="slide s-social" data-label="Contenido en redes">
+      <div class="slide-header">
+        <div class="slide-tag light">15 · Contenido en redes</div>
+        <h2 class="slide-title">Creación de contenido para <span>redes sociales</span></h2>
+        <p class="slide-sub">Qué publicamos, en qué formato y con qué frecuencia. Un sistema de contenido constante que alimenta el funnel sin depender de la inspiración del momento.</p>
+      </div>
+      <div class="section-label">Tipos de contenido</div>
+      <div class="ctype-grid">
+        <div class="ctype"><span class="ci">🎓</span><h4>Educativo</h4><p>Materiales, cuidado de prendas y consejos de estilo. Aporta valor y posiciona expertise.</p></div>
+        <div class="ctype"><span class="ci">✨</span><h4>Inspiracional</h4><p>Looks, lifestyle y valores de marca. Genera deseo y conexión emocional.</p></div>
+        <div class="ctype"><span class="ci">🎬</span><h4>Detrás de cámaras</h4><p>Producción, equipo y trazabilidad. Refuerza la transparencia y la autenticidad.</p></div>
+        <div class="ctype"><span class="ci">⭐</span><h4>UGC y reseñas</h4><p>Reposts de clientas reales con sus prendas. Máxima credibilidad, coste mínimo.</p></div>
+        <div class="ctype"><span class="ci">🛍️</span><h4>Producto</h4><p>Lanzamientos, novedades y ofertas. Directo y comercial, sin saturar.</p></div>
+      </div>
+      <div class="social-cols">
+        <div class="card" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);">
+          <h3>Formatos por plataforma</h3>
+          <div class="plat"><span class="pi">📷</span><div class="pt"><strong>Instagram</strong> — Reels para alcance, carruseles para guardado y educación, Stories para cercanía + CTA, y posts de feed estéticos.</div></div>
+          <div class="plat"><span class="pi">🎥</span><div class="pt"><strong>TikTok</strong> — Vídeos cortos de tendencias, comparativas y curiosidades. El motor de viralidad y alcance joven.</div></div>
+          <div class="plat"><span class="pi">📌</span><div class="pt"><strong>Pinterest</strong> — Pines de looks y guías de estilo que generan tráfico evergreen hacia la web.</div></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="card" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);">
+            <h3>Cómo se publica · flujo de trabajo</h3>
+            <div class="flow-steps">
+              <div class="fstep"><div class="fnum">1</div><div class="ftxt"><strong>Idear:</strong> calendario editorial mensual por pilares y fechas clave.</div></div>
+              <div class="fstep"><div class="fnum">2</div><div class="ftxt"><strong>Producir:</strong> grabación, edición y redacción del copy con CTA.</div></div>
+              <div class="fstep"><div class="fnum">3</div><div class="ftxt"><strong>Programar:</strong> con Meta Business Suite y herramienta de scheduling.</div></div>
+              <div class="fstep"><div class="fnum">4</div><div class="ftxt"><strong>Publicar e interactuar:</strong> en horario óptimo y respondiendo en la primera hora.</div></div>
+              <div class="fstep"><div class="fnum">5</div><div class="ftxt"><strong>Medir y reciclar:</strong> escalar lo que funciona y reutilizar el mejor contenido.</div></div>
+            </div>
+          </div>
+          <div class="card" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);">
+            <h3>Frecuencia de publicación</h3>
+            <div class="cad">
+              <div class="cad-row"><span class="cl">Instagram · Reels</span><span class="cv">3–4 / semana</span></div>
+              <div class="cad-row"><span class="cl">Carruseles y posts</span><span class="cv">2–3 / semana</span></div>
+              <div class="cad-row"><span class="cl">Stories</span><span class="cv">diario</span></div>
+              <div class="cad-row"><span class="cl">TikTok</span><span class="cv">4–5 / semana</span></div>
+              <div class="cad-row"><span class="cl">Pinterest</span><span class="cv">5–10 pines / semana</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 17 · EMAIL AUTOMATION ===== -->
     <div class="slide s-email" data-label="Email Marketing">
       <div class="slide-header">
-        <div class="slide-tag light">15 · Email Marketing</div>
+        <div class="slide-tag light">16 · Email Marketing</div>
         <h2 class="slide-title">Flujos de <span>automatización</span></h2>
         <p class="slide-sub">El email es nuestro canal propio más rentable: no dependemos de algoritmos y hablamos directamente con el cliente. Estos cuatro flujos automatizados trabajan 24/7 en cada fase del embudo.</p>
       </div>
@@ -979,10 +1084,61 @@
       </div>
     </div>
 
-    <!-- ===== 17 · KPIs ===== -->
+    <!-- ===== 18 · SCHEMA MARKUP ===== -->
+    <div class="slide s-schema" data-label="Schema markup">
+      <div class="slide-header">
+        <div class="slide-tag light">17 · SEO técnico</div>
+        <h2 class="slide-title">Schema markup &amp; <span>datos estructurados</span></h2>
+        <p class="slide-sub">Código invisible que le dice a Google qué es cada elemento de la tienda. Activa los resultados enriquecidos (estrellas, precio, stock) y mejora el posicionamiento técnico.</p>
+      </div>
+      <div class="schema-cols">
+        <div>
+          <div class="section-label">Tipos de schema en la tienda</div>
+          <div class="schema-list">
+            <div class="schema-item"><span class="si">🏬</span><div><h4>Organization</h4><div class="sd">Nombre, logo, datos de contacto y perfiles sociales de la marca.</div></div></div>
+            <div class="schema-item"><span class="si">🛍️</span><div><h4>Product</h4><div class="sd">Nombre, imagen, precio, moneda y disponibilidad de cada prenda.</div></div></div>
+            <div class="schema-item"><span class="si">⭐</span><div><h4>AggregateRating + Review</h4><div class="sd">Valoración media y reseñas: muestra estrellas en los resultados de Google.</div></div></div>
+            <div class="schema-item"><span class="si">🧭</span><div><h4>BreadcrumbList</h4><div class="sd">Ruta de navegación (Inicio › Categoría › Producto) en el buscador.</div></div></div>
+            <div class="schema-item"><span class="si">❓</span><div><h4>FAQPage</h4><div class="sd">Preguntas frecuentes que pueden aparecer como resultado enriquecido.</div></div></div>
+            <div class="schema-item"><span class="si">🔍</span><div><h4>WebSite + SearchAction</h4><div class="sd">Caja de búsqueda de la marca directamente en los resultados de Google.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="code-card">
+            <div class="ct">📄 JSON-LD · ejemplo de producto</div>
+<pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": <span class="t">"Product"</span>,
+  "name": <span class="s">"Organic Cotton Tee"</span>,
+  "brand": { "@type": <span class="t">"Brand"</span>, "name": "GreenThread" },
+  "offers": {
+    "@type": <span class="t">"Offer"</span>,
+    "price": <span class="s">"34.00"</span>,
+    "priceCurrency": "EUR",
+    "availability": "InStock"
+  },
+  "aggregateRating": {
+    "@type": <span class="t">"AggregateRating"</span>,
+    "ratingValue": "4.9",
+    "reviewCount": "212"
+  }
+}
+&lt;/script&gt;</pre>
+          </div>
+          <div class="schema-benefits">
+            <div class="sb-item"><div class="sbt">📈 +CTR</div><div class="sbd">Las estrellas y el precio destacan en Google y aumentan los clics.</div></div>
+            <div class="sb-item"><div class="sbt">✅ Validado</div><div class="sbd">Probado con el Test de Resultados Enriquecidos de Google.</div></div>
+            <div class="sb-item"><div class="sbt">🤖 Mejor SEO</div><div class="sbd">Google entiende e indexa mejor el catálogo de la tienda.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 19 · KPIs ===== -->
     <div class="slide s9" data-label="KPIs &amp; Budget">
       <div class="slide-header">
-        <div class="slide-tag blue">16 · Métricas &amp; Presupuesto</div>
+        <div class="slide-tag blue">18 · Métricas &amp; Presupuesto</div>
         <h2 class="slide-title">Indicadores de <span>éxito</span></h2>
         <p class="slide-sub">Qué medimos en cada fase del funnel, cuánto invertimos en cada canal y qué retorno esperamos. Una estrategia solo es profesional si es medible y se ajusta con datos.</p>
       </div>
@@ -1027,7 +1183,7 @@
     <!-- ===== 18 · CALENDARIO ===== -->
     <div class="slide s10" data-label="Calendario">
       <div class="slide-header">
-        <div class="slide-tag dark">17 · Roadmap</div>
+        <div class="slide-tag dark">19 · Roadmap</div>
         <h2 class="slide-title dark">Primer mes de <span>ejecución</span></h2>
         <p class="slide-sub dark">Un plan semanal claro para lanzar la estrategia con orden, ritmo y aprendizaje continuo. Cada semana tiene un foco distinto que construye sobre la anterior, de la preparación a la optimización con datos.</p>
       </div>
@@ -1042,7 +1198,7 @@
     <!-- ===== 19 · RETOS ===== -->
     <div class="slide s11" data-label="Retos">
       <div class="slide-header">
-        <div class="slide-tag light">18 · Aprendizajes &amp; Retos</div>
+        <div class="slide-tag light">20 · Aprendizajes &amp; Retos</div>
         <h2 class="slide-title">Desafíos y <span>cómo los resolvemos</span></h2>
         <p class="slide-sub">Todo proyecto real implica decisiones difíciles. Estos son los principales retos de GreenThread y la decisión estratégica con la que respondemos a cada uno.</p>
       </div>
@@ -1059,7 +1215,7 @@
     <!-- ===== 20 · CONCLUSIONES ===== -->
     <div class="slide s-next" data-label="Conclusiones">
       <div class="slide-header">
-        <div class="slide-tag light">19 · Conclusiones &amp; Próximos pasos</div>
+        <div class="slide-tag light">21 · Conclusiones &amp; Próximos pasos</div>
         <h2 class="slide-title">Hacia dónde <span>vamos</span></h2>
         <p class="slide-sub">El primer mes valida la estrategia; los siguientes la escalan. Este es el plan de crecimiento por fases y las tres ideas que sostienen todo el proyecto.</p>
       </div>
@@ -1125,10 +1281,21 @@
   </div>
 
   <div class="nav-bar">
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰ <span id="menuBtnText">Slides</span></button>
     <button class="nav-btn" id="prev" aria-label="Anterior">←</button>
     <div class="nav-label"><b id="counter">1</b> / <span id="total">21</span> · <span id="label">Portada</span></div>
     <button class="nav-btn" id="next" aria-label="Siguiente">→</button>
     <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="slide-menu" id="slideMenu">
+    <div class="backdrop" id="menuBackdrop"></div>
+    <div class="panel">
+      <button class="pm-close" id="menuClose" aria-label="Close">×</button>
+      <h3 id="menuTitle">Slides</h3>
+      <div class="pm-sub" id="menuSub">Jump to any slide</div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
   </div>
 
   <script>
@@ -1155,7 +1322,7 @@
       'Portada': 'Cover', 'Índice': 'Index', 'Contexto': 'Context', 'DAFO': 'SWOT',
       'Competencia': 'Competitors', 'Marca': 'Brand', 'Objetivos': 'Objectives',
       'Audiencia': 'Audience', 'Fidelización': 'Loyalty', 'Contenido': 'Content',
-      'Creatividades': 'Creatives', 'Calendario': 'Calendar', 'Retos': 'Challenges',
+      'Creatividades': 'Creatives', 'Contenido en redes': 'Social content', 'Calendario': 'Calendar', 'Retos': 'Challenges',
       'Conclusiones': 'Conclusions', 'Cierre': 'Closing'
     };
 
@@ -1183,11 +1350,11 @@
       '10 Funnel TOFU': '<span class="n">10</span> TOFU funnel',
       '11 Funnel MOFU': '<span class="n">11</span> MOFU funnel',
       '12 Funnel BOFU': '<span class="n">12</span> BOFU funnel',
-      '13 Fidelización · 14 Creatividades · 15 Email': '<span class="n">13</span> Loyalty · 14 Creatives · 15 Email',
-      '16 KPIs y presupuesto': '<span class="n">16</span> KPIs & budget',
-      '17 Calendario de ejecución': '<span class="n">17</span> Execution calendar',
-      '18 Retos y aprendizajes': '<span class="n">18</span> Challenges & learnings',
-      '19 Conclusiones y próximos pasos': '<span class="n">19</span> Conclusions & next steps',
+      '13 Fidelización · 14 Creatividades · 15 Redes · 16 Email · 17 Schema': '<span class="n">13</span> Loyalty · 14 Creatives · 15 Social · 16 Email · 17 Schema',
+      '18 KPIs y presupuesto': '<span class="n">18</span> KPIs & budget',
+      '19 Calendario de ejecución': '<span class="n">19</span> Execution calendar',
+      '20 Retos y aprendizajes': '<span class="n">20</span> Challenges & learnings',
+      '21 Conclusiones y próximos pasos': '<span class="n">21</span> Conclusions & next steps',
       // 3 · Context
       '02 · Contexto & Mercado': '02 · Context & Market',
       'Introducción & Oportunidad': 'Introduction & <span>Opportunity</span>',
@@ -1393,7 +1560,29 @@
       'Impacta a quien vio un producto y no compró, con la prenda exacta y un incentivo final que rompe la última barrera.': 'Reaches those who viewed a product without buying, with the exact garment and a final incentive that breaks the last barrier.',
       'KPI: alcance & guardados': 'KPI: reach & saves', 'KPI: saves & CTR a web': 'KPI: saves & CTR to site', 'KPI: recuperación de ventas': 'KPI: sales recovery',
       'KPI: posición orgánica & sesiones': 'KPI: organic ranking & sessions', 'KPI: confianza & conversión': 'KPI: trust & conversion', 'KPI: ROAS & conversión': 'KPI: ROAS & conversion',
-      // 16 · Email
+      // 16 · Social content
+      '15 · Contenido en redes': '15 · Social content',
+      'Creación de contenido para redes sociales': 'Content creation for <span>social media</span>',
+      'Qué publicamos, en qué formato y con qué frecuencia. Un sistema de contenido constante que alimenta el funnel sin depender de la inspiración del momento.': 'What we post, in what format and how often. A consistent content system that feeds the funnel without relying on momentary inspiration.',
+      'Tipos de contenido': 'Content types',
+      'Educativo': 'Educational', 'Materiales, cuidado de prendas y consejos de estilo. Aporta valor y posiciona expertise.': 'Materials, garment care and styling tips. Adds value and positions expertise.',
+      'Inspiracional': 'Inspirational', 'Looks, lifestyle y valores de marca. Genera deseo y conexión emocional.': 'Looks, lifestyle and brand values. Builds desire and emotional connection.',
+      'Detrás de cámaras': 'Behind the scenes', 'Producción, equipo y trazabilidad. Refuerza la transparencia y la autenticidad.': 'Production, team and traceability. Reinforces transparency and authenticity.',
+      'UGC y reseñas': 'UGC & reviews', 'Reposts de clientas reales con sus prendas. Máxima credibilidad, coste mínimo.': 'Reposts of real customers in their pieces. Maximum credibility, minimal cost.',
+      'Producto': 'Product', 'Lanzamientos, novedades y ofertas. Directo y comercial, sin saturar.': 'Launches, new arrivals and offers. Direct and commercial, without overwhelming.',
+      'Formatos por plataforma': 'Formats by platform',
+      'Instagram — Reels para alcance, carruseles para guardado y educación, Stories para cercanía + CTA, y posts de feed estéticos.': '<strong>Instagram</strong> — Reels for reach, carousels for saves and education, Stories for closeness + CTA, and aesthetic feed posts.',
+      'TikTok — Vídeos cortos de tendencias, comparativas y curiosidades. El motor de viralidad y alcance joven.': '<strong>TikTok</strong> — Short videos with trends, comparisons and curiosities. The engine of virality and young reach.',
+      'Pinterest — Pines de looks y guías de estilo que generan tráfico evergreen hacia la web.': '<strong>Pinterest</strong> — Pins of looks and style guides that drive evergreen traffic to the site.',
+      'Cómo se publica · flujo de trabajo': 'How it’s published · workflow',
+      'Idear: calendario editorial mensual por pilares y fechas clave.': '<strong>Ideate:</strong> monthly editorial calendar by pillars and key dates.',
+      'Producir: grabación, edición y redacción del copy con CTA.': '<strong>Produce:</strong> filming, editing and writing the copy with a CTA.',
+      'Programar: con Meta Business Suite y herramienta de scheduling.': '<strong>Schedule:</strong> with Meta Business Suite and a scheduling tool.',
+      'Publicar e interactuar: en horario óptimo y respondiendo en la primera hora.': '<strong>Publish & engage:</strong> at the optimal time and replying within the first hour.',
+      'Medir y reciclar: escalar lo que funciona y reutilizar el mejor contenido.': '<strong>Measure & recycle:</strong> scale what works and repurpose the best content.',
+      'Frecuencia de publicación': 'Posting frequency',
+      'Carruseles y posts': 'Carousels & posts', '3–4 / semana': '3–4 / week', '2–3 / semana': '2–3 / week', 'diario': 'daily', '4–5 / semana': '4–5 / week', '5–10 pines / semana': '5–10 pins / week',
+      // 17 · Email
       'Flujos de automatización': 'Automation <span>flows</span>',
       'El email es nuestro canal propio más rentable: no dependemos de algoritmos y hablamos directamente con el cliente. Estos cuatro flujos automatizados trabajan 24/7 en cada fase del embudo.': 'Email is our most profitable owned channel: we don’t depend on algorithms and we talk directly to the customer. These four automated flows work 24/7 across every funnel stage.',
       'Bienvenida': 'Welcome', 'Carrito abandonado': 'Abandoned cart', 'Post-compra': 'Post-purchase', 'Reactivación (win-back)': 'Reactivation (win-back)',
@@ -1410,8 +1599,25 @@
       '“Te echamos de menos”: novedades de la marca y nueva colección.': '<strong>“We miss you”:</strong> brand news and the new collection.',
       '+5 días: oferta personalizada según compras anteriores.': '<span class="delay">+5 days:</span> personalized offer based on past purchases.',
       '+10 días: última llamada + limpieza de lista si no reacciona.': '<span class="delay">+10 days:</span> last call + list cleanup if no response.',
-      // 17 · KPIs
-      '16 · Métricas & Presupuesto': '16 · Metrics & Budget',
+      // 18 · Schema markup
+      '17 · SEO técnico': '17 · Technical SEO',
+      'Schema markup & datos estructurados': 'Schema markup & <span>structured data</span>',
+      'Código invisible que le dice a Google qué es cada elemento de la tienda. Activa los resultados enriquecidos (estrellas, precio, stock) y mejora el posicionamiento técnico.': 'Invisible code that tells Google what every element of the store is. It unlocks rich results (stars, price, stock) and improves technical ranking.',
+      'Tipos de schema en la tienda': 'Schema types in the store',
+      'Nombre, logo, datos de contacto y perfiles sociales de la marca.': 'Brand name, logo, contact details and social profiles.',
+      'Nombre, imagen, precio, moneda y disponibilidad de cada prenda.': 'Name, image, price, currency and availability of each garment.',
+      'Valoración media y reseñas: muestra estrellas en los resultados de Google.': 'Average rating and reviews: shows stars in Google results.',
+      'Ruta de navegación (Inicio › Categoría › Producto) en el buscador.': 'Navigation path (Home › Category › Product) in search.',
+      'Preguntas frecuentes que pueden aparecer como resultado enriquecido.': 'FAQs that can appear as a rich result.',
+      'Caja de búsqueda de la marca directamente en los resultados de Google.': 'A brand search box directly in Google results.',
+      '📄 JSON-LD · ejemplo de producto': '📄 JSON-LD · product example',
+      'Las estrellas y el precio destacan en Google y aumentan los clics.': 'Stars and price stand out in Google and boost clicks.',
+      '✅ Validado': '✅ Validated',
+      'Probado con el Test de Resultados Enriquecidos de Google.': 'Tested with Google’s Rich Results Test.',
+      '🤖 Mejor SEO': '🤖 Better SEO',
+      'Google entiende e indexa mejor el catálogo de la tienda.': 'Google understands and indexes the store catalogue better.',
+      // 19 · KPIs
+      '18 · Métricas & Presupuesto': '18 · Metrics & Budget',
       'Indicadores de éxito': 'Success <span>metrics</span>',
       'Qué medimos en cada fase del funnel, cuánto invertimos en cada canal y qué retorno esperamos. Una estrategia solo es profesional si es medible y se ajusta con datos.': 'What we measure at each funnel stage, how much we invest in each channel and what return we expect. A strategy is only professional if it’s measurable and adjusted with data.',
       'Alcance mensual en Instagram (TOFU)': 'Monthly Instagram reach (TOFU)', 'Visitantes que se suscriben (MOFU)': 'Visitors who subscribe (MOFU)', 'Visitantes que compran (BOFU)': 'Visitors who buy (BOFU)', 'ROAS objetivo en campañas de pago': 'Target ROAS on paid campaigns',
@@ -1447,7 +1653,7 @@
       'Plan: escalar lo que funciona': '<strong>Plan:</strong> scale what works',
       'Plan: contenidos del mes 2': '<strong>Plan:</strong> month-2 content',
       // 19 · Challenges
-      '18 · Aprendizajes & Retos': '18 · Learnings & Challenges',
+      '20 · Aprendizajes & Retos': '20 · Learnings & Challenges',
       'Desafíos y cómo los resolvemos': 'Challenges & <span>how we solve them</span>',
       'Todo proyecto real implica decisiones difíciles. Estos son los principales retos de GreenThread y la decisión estratégica con la que respondemos a cada uno.': 'Every real project involves tough decisions. These are GreenThread’s main challenges and the strategic decision we respond to each one with.',
       'Tono de voz coherente': 'Consistent tone of voice', 'Presupuesto limitado': 'Limited budget', 'Confianza frente al greenwashing': 'Trust vs. greenwashing', 'Equilibrio valor vs. venta': 'Value vs. sales balance', 'Estacionalidad de la demanda': 'Seasonal demand', 'Logística y devoluciones': 'Logistics & returns',
@@ -1464,7 +1670,7 @@
       'Solución: calendario de campañas anticipado para fechas clave y foco en fidelización para los meses valle.': '<b>Solution:</b> a campaign calendar planned ahead for key dates and a loyalty focus for the trough months.',
       'Solución: guía de tallas detallada, fotos en modelos reales con medidas y atención proactiva.': '<b>Solution:</b> detailed size guide, photos on real models with measurements and proactive support.',
       // 20 · Conclusions
-      '19 · Conclusiones & Próximos pasos': '19 · Conclusions & Next steps',
+      '21 · Conclusiones & Próximos pasos': '21 · Conclusions & Next steps',
       'Hacia dónde vamos': 'Where we’re <span>going</span>',
       'El primer mes valida la estrategia; los siguientes la escalan. Este es el plan de crecimiento por fases y las tres ideas que sostienen todo el proyecto.': 'The first month validates the strategy; the following ones scale it. This is the phased growth plan and the three ideas that hold the whole project together.',
       'Mes 1–2': 'Month 1–2', 'Mes 3–6': 'Month 3–6', 'Mes 6–12': 'Month 6–12',
@@ -1494,7 +1700,7 @@
       'Alejandro Sánchez · Proyecto Final de Marketing Digital · Ironhack 2026': 'Alejandro Sánchez · Digital Marketing Final Project · Ironhack 2026'
     };
 
-    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link';
+    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link,.ctype h4,.ctype p,.plat .pt,.cad-row .cl,.cad-row .cv,.schema-item .sd,.code-card .ct,.sb-item .sbt,.sb-item .sbd';
 
     const norm = s => s.replace(/\s+/g, ' ').trim();
     let i18nNodes = [];
@@ -1511,6 +1717,11 @@
       });
       document.documentElement.lang = lang;
       document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+      const isES = lang === 'es';
+      document.getElementById('menuBtnText').textContent = isES ? 'Diapositivas' : 'Slides';
+      document.getElementById('menuTitle').textContent = isES ? 'Diapositivas' : 'Slides';
+      document.getElementById('menuSub').textContent = isES ? 'Salta a cualquier diapositiva' : 'Jump to any slide';
+      if (slideMenu.classList.contains('open')) buildMenu();
       update();
     }
     document.querySelectorAll('.lang-opt').forEach(b => {
@@ -1537,7 +1748,31 @@
 
     document.getElementById('next').addEventListener('click', () => goTo(current + 1));
     document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+
+    /* ---------- Slide navigation menu ---------- */
+    const slideMenu = document.getElementById('slideMenu');
+    const menuGrid = document.getElementById('menuGrid');
+    function buildMenu() {
+      menuGrid.innerHTML = '';
+      slides.forEach((s, i) => {
+        const raw = s.dataset.label;
+        const name = (lang === 'en' && LABELS[raw]) ? LABELS[raw] : raw;
+        const item = document.createElement('button');
+        item.className = 'menu-item' + (i === current ? ' current' : '');
+        item.innerHTML = '<span class="mi-num">' + String(i + 1).padStart(2, '0') + '</span><span>' + name + '</span>';
+        item.addEventListener('click', () => { goTo(i); closeMenu(); });
+        menuGrid.appendChild(item);
+      });
+    }
+    function openMenu() { buildMenu(); slideMenu.classList.add('open'); }
+    function closeMenu() { slideMenu.classList.remove('open'); }
+    document.getElementById('menuBtn').addEventListener('click', openMenu);
+    document.getElementById('menuClose').addEventListener('click', closeMenu);
+    document.getElementById('menuBackdrop').addEventListener('click', closeMenu);
+
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeMenu(); return; }
+      if (slideMenu.classList.contains('open')) return;
       if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
       if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
       if (e.key === 'Home') goTo(0);

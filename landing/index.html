@@ -5,6 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GreenThread — Conscious fashion. Style without compromise.</title>
   <meta name="description" content="GreenThread — sustainable fashion that's desirable, accessible and radically transparent. Timeless pieces, certified materials, fair prices." />
+
+  <!-- ============ Schema Markup · Structured data (JSON-LD) ============ -->
+  <!-- Organization / Store -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "name": "GreenThread",
+    "url": "https://www.greenthread.com",
+    "logo": "https://www.greenthread.com/logo.png",
+    "description": "Sustainable fashion that's desirable, accessible and radically transparent.",
+    "sameAs": [
+      "https://instagram.com/greenthread",
+      "https://tiktok.com/@greenthread",
+      "https://pinterest.com/greenthread"
+    ]
+  }
+  </script>
+
+  <!-- WebSite + Sitelinks Search Box -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "GreenThread",
+    "url": "https://www.greenthread.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.greenthread.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.greenthread.com" },
+      { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://www.greenthread.com/shop" }
+    ]
+  }
+  </script>
+
+  <!-- Best-seller products -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best-sellers",
+    "itemListElement": [
+      { "@type": "Product", "position": 1, "name": "Organic Cotton Tee", "category": "Essentials", "image": "https://www.greenthread.com/img/organic-cotton-tee.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "34.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "212" } },
+      { "@type": "Product", "position": 2, "name": "Recycled Wool Coat", "category": "Outerwear", "image": "https://www.greenthread.com/img/recycled-wool-coat.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "129.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "86" } },
+      { "@type": "Product", "position": 3, "name": "Tencel Wide Trousers", "category": "Bottoms", "image": "https://www.greenthread.com/img/tencel-wide-trousers.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "72.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": "54" } },
+      { "@type": "Product", "position": 4, "name": "Linen Midi Dress", "category": "Dresses", "image": "https://www.greenthread.com/img/linen-midi-dress.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "89.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "141" } },
+      { "@type": "Product", "position": 5, "name": "Merino Knit Jumper", "category": "Knitwear", "image": "https://www.greenthread.com/img/merino-knit-jumper.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "95.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "98" } },
+      { "@type": "Product", "position": 6, "name": "Organic Cotton Scarf", "category": "Accessories", "image": "https://www.greenthread.com/img/organic-cotton-scarf.jpg", "brand": { "@type": "Brand", "name": "GreenThread" }, "offers": { "@type": "Offer", "price": "28.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "173" } }
+    ]
+  }
+  </script>
+
+  <!-- FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Do you offer free shipping?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, free shipping on all orders over EUR 60, delivered in 24-48h." } },
+      { "@type": "Question", "name": "What is your return policy?", "acceptedAnswer": { "@type": "Answer", "text": "We offer 30-day free returns on every order." } },
+      { "@type": "Question", "name": "Are your materials really sustainable?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We use GOTS organic cotton, Tencel and recycled polyester, with full traceability on every product." } }
+    ]
+  }
+  </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
