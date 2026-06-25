@@ -10,7 +10,8 @@
       "mcp__playwright__browser_take_screenshot",
       "Bash(rm -f _serve.js landing-full.jpeg)",
       "Bash(rm -rf .playwright-mcp)",
-      "Read(//d/d/IRONHACK/poryecto final/**)"
+      "Read(//d/d/IRONHACK/poryecto final/**)",
+      "Bash(rm -f _serve.js)"
     ],
     "additionalDirectories": [
       "d:\\d\\IRONHACK\\poryecto final"
