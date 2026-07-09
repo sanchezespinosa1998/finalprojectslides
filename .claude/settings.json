@@ -16,7 +16,10 @@
       "Bash(node -e ' *)",
       "Bash(rm -f _serve.js schema-slide.jpeg)",
       "Bash(rm -f _serve.js model-slide.jpeg)",
-      "Bash(rm -f _serve.js bizmodel.jpeg)"
+      "Bash(rm -f _serve.js bizmodel.jpeg)",
+      "Bash(awk 'NR>=560 && NR<=1924' index.html)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -sI http://localhost:8791/index.html)"
     ],
     "additionalDirectories": [
       "d:\\d\\IRONHACK\\poryecto final"

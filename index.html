@@ -547,8 +547,45 @@
     .s12 .closing-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; background: var(--green-light); color: var(--green-dark); font-weight: 800; font-size: 15px; padding: 14px 30px; border-radius: 999px; text-decoration: none; position: relative; z-index: 2; transition: background .2s, transform .2s; }
     .s12 .closing-cta:hover { background: #fff; transform: translateY(-2px); }
 
+    /* ---------- Interactive FX layer ---------- */
+    [data-tiltable] { will-change: transform; transition: transform .25s cubic-bezier(.22,.61,.36,1), border-color .25s ease, box-shadow .25s ease; }
+
+    .timer-chip { font-variant-numeric: tabular-nums; color: rgba(255,255,255,.55); font-size: 11px; font-weight: 800; letter-spacing: .5px; padding: 0 8px; min-width: 44px; text-align: center; cursor: pointer; user-select: none; }
+    .timer-chip:hover { color: #fff; }
+    .nav-btn.playing { background: var(--green-light); color: var(--green-dark); }
+
+    /* ---------- Fill / insight components ---------- */
+    .stat-strip { display: flex; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+    .stat-strip .ss-item { flex: 1; min-width: 160px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 13px; padding: 13px 17px; transition: transform .25s ease, border-color .25s ease; }
+    .stat-strip .ss-item:hover { transform: translateY(-3px); border-color: rgba(99,199,141,.35); }
+    .stat-strip.light .ss-item { background: #fff; border: none; box-shadow: var(--shadow); }
+    .stat-strip .ss-val { font-size: 21px; font-weight: 900; color: var(--green-light); letter-spacing: -.5px; }
+    .stat-strip.light .ss-val { color: var(--green-mid); }
+    .stat-strip .ss-lbl { font-size: 12.5px; color: rgba(255,255,255,.6); margin-top: 3px; line-height: 1.4; }
+    .stat-strip.light .ss-lbl { color: var(--text-mid); }
+
+    .voice-example { margin-top: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 16px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; }
+    .voice-example .ve-ig { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,#63c78d,#c8a34b); display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .voice-example .ve-body { flex: 1; }
+    .voice-example .ve-tag { display: block; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--green-light); margin-bottom: 7px; }
+    .voice-example .ve-cap { font-size: 14.5px; color: rgba(255,255,255,.82); line-height: 1.6; }
+    .voice-example .ve-cap b { color: #fff; }
+    .voice-example .ve-meta { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 8px; }
+
+    .breakeven-wrap { margin-top: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px 18px; }
+    .breakeven-wrap h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--green-light); font-weight: 800; margin-bottom: 11px; }
+    .breakeven-track { position: relative; height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .breakeven-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg,var(--green-mid),var(--green-glow)); width: 0; transition: width 1.1s cubic-bezier(.22,.61,.36,1); }
+    .breakeven-marker { position: absolute; top: -4px; width: 2px; height: 18px; background: #fff; opacity: .5; }
+    .breakeven-labels { display: flex; justify-content: space-between; margin-top: 9px; font-size: 12.5px; color: rgba(255,255,255,.6); }
+    .breakeven-labels strong { color: #fff; }
+
+    .mini-note { margin-top: 14px; display: flex; align-items: center; gap: 10px; background: rgba(99,199,141,.08); border: 1px solid rgba(99,199,141,.2); border-radius: 12px; padding: 11px 15px; font-size: 13px; color: rgba(255,255,255,.78); line-height: 1.5; }
+    .mini-note .mn-ico { font-size: 17px; flex-shrink: 0; }
+    .mini-note.light { background: rgba(45,106,79,.06); border-color: rgba(45,106,79,.18); color: var(--text-mid); }
+
     @media (max-width: 1000px) {
-      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid, .ctype-grid, .social-cols, .schema-cols, .schema-benefits, .model-foot, .bm-cols { grid-template-columns: 1fr; }
+      .two-col, .three-col, .four-col, .persona-wrap, .content-grid, .post-grid, .examples-grid, .summary-grid, .calendar, .challenge-grid, .funnel-grid, .s9-cols, .diff-grid, .retention-bar, .agenda-grid, .swot-grid, .brand-grid, .values-row, .smart-grid, .journey, .pillars-grid, .tone-box, .flow-grid, .next-timeline, .comp-row, .tk-grid, .ctype-grid, .social-cols, .schema-cols, .schema-benefits, .model-foot, .bm-cols, .stat-strip { grid-template-columns: 1fr; }
       .funnel-layout, .stack { grid-template-columns: 1fr; }
     }
   </style>
@@ -627,6 +664,13 @@
           </ol>
         </div>
       </div>
+      <div class="stat-strip">
+        <div class="ss-item"><div class="ss-val">25</div><div class="ss-lbl">Slides covering the full strategy, start to finish</div></div>
+        <div class="ss-item"><div class="ss-val">780€</div><div class="ss-lbl">Monthly media budget behind every tactic</div></div>
+        <div class="ss-item"><div class="ss-val">12</div><div class="ss-lbl">Months of roadmap, from launch to consolidation</div></div>
+        <div class="ss-item"><div class="ss-val">1</div><div class="ss-lbl">Single goal: profitable, measurable growth</div></div>
+      </div>
+      <div class="mini-note"><span class="mn-ico">🧭</span>Use ← → or the slide menu (☰) to navigate, press F for fullscreen, Space to autoplay, or jump straight to any block above by clicking its number.</div>
     </div>
 
     <!-- ===== 3 · CONTEXTO ===== -->
@@ -718,6 +762,7 @@
           </ul>
         </div>
       </div>
+      <div class="mini-note"><span class="mn-ico">🧭</span>Strategic reading: strengths and opportunities point the same direction — accessible, certified sustainability in a growing market. The plan below is built to lean into that overlap while actively managing the weaknesses and threats, not ignoring them.</div>
     </div>
 
     <!-- ===== 5 · COMPETENCIA ===== -->
@@ -725,20 +770,27 @@
       <div class="slide-header">
         <div class="slide-tag">04 · Benchmark</div>
         <h2 class="slide-title dark">Análisis de la <span>competencia</span></h2>
-        <p class="slide-sub dark">Comparamos a GreenThread con los dos grandes grupos de rivales: el fast fashion masivo y las marcas sostenibles premium. Nuestra ventaja está en el punto medio que nadie ocupa bien.</p>
+        <p class="slide-sub dark">Comparamos a GreenThread con dos competidores reales que marcan los extremos del mercado: <strong>Zara</strong> (fast fashion masivo) y <strong>Reformation</strong> (moda sostenible premium). Nuestra ventaja está en el punto medio que ninguna de las dos ocupa bien.</p>
       </div>
       <div class="comp-table">
-        <div class="comp-row header"><div class="crit">Criterio</div><div class="us">GreenThread</div><div>Fast Fashion</div><div>Sostenible Premium</div></div>
-        <div class="comp-row"><div class="crit">Precio</div><div class="us">Medio · justo</div><div class="good">Muy bajo</div><div class="bad">Muy alto</div></div>
-        <div class="comp-row"><div class="crit">Precio medio / prenda</div><div class="us">35–55€</div><div class="good">8–15€</div><div class="bad">80–120€</div></div>
-        <div class="comp-row"><div class="crit">Sostenibilidad real</div><div class="us">Alta y certificada</div><div class="bad">Baja / dudosa</div><div class="good">Alta</div></div>
-        <div class="comp-row"><div class="crit">Estilo / diseño</div><div class="us">Actual y deseable</div><div class="good">Tendencia rápida</div><div class="mid">Variable</div></div>
-        <div class="comp-row"><div class="crit">Transparencia</div><div class="us">Radical (trazabilidad)</div><div class="bad">Opaca</div><div class="mid">Media-alta</div></div>
-        <div class="comp-row"><div class="crit">Experiencia digital</div><div class="us">Cuidada y simple</div><div class="good">Muy desarrollada</div><div class="bad">A menudo básica</div></div>
+        <div class="comp-row header"><div class="crit">Criterio</div><div class="us">GreenThread</div><div>Zara</div><div>Reformation</div></div>
+        <div class="comp-row"><div class="crit">Modelo</div><div class="us">D2C online</div><div class="mid">Retail + online (Inditex)</div><div class="mid">D2C online + tiendas propias</div></div>
+        <div class="comp-row"><div class="crit">Precio</div><div class="us">Medio · justo</div><div class="good">Bajo</div><div class="bad">Alto</div></div>
+        <div class="comp-row"><div class="crit">Precio medio / prenda</div><div class="us">35–55€</div><div class="good">15–35€</div><div class="bad">90–160€</div></div>
+        <div class="comp-row"><div class="crit">Sostenibilidad real</div><div class="us">Alta y certificada</div><div class="bad">Baja / cuestionada (colección "Join Life")</div><div class="good">Alta (RefScale propio)</div></div>
+        <div class="comp-row"><div class="crit">Estilo / diseño</div><div class="us">Actual y deseable</div><div class="good">Tendencia rápida, alta rotación</div><div class="mid">Trendy, estética femenina</div></div>
+        <div class="comp-row"><div class="crit">Transparencia</div><div class="us">Radical (trazabilidad por prenda)</div><div class="bad">Opaca en su cadena de suministro</div><div class="mid">Media-alta, propio índice de impacto</div></div>
+        <div class="comp-row"><div class="crit">Experiencia digital</div><div class="us">Cuidada y simple</div><div class="good">Muy desarrollada (app + 2.000+ tiendas)</div><div class="mid">Cuidada pero catálogo reducido</div></div>
       </div>
+      <p class="comp-note" style="font-size:11.5px; color:var(--text-light); margin-top:8px;">* Comparación basada en posicionamiento público de precio y comunicación de sostenibilidad de cada marca (Zara / Inditex, Reformation), no en datos financieros internos.</p>
       <div class="pos-banner">
         <div class="pi">🎯</div>
-        <strong>Posicionamiento: GreenThread es <em>la moda sostenible sin barreras</em> — la calidad y los valores de una marca premium, con la accesibilidad y la facilidad de compra del fast fashion.</strong>
+        <strong>Posicionamiento: GreenThread es <em>la moda sostenible sin barreras</em> — la calidad y los valores de Reformation, con la accesibilidad y la facilidad de compra de Zara.</strong>
+      </div>
+      <div class="stat-strip light">
+        <div class="ss-item"><div class="ss-val">-45%</div><div class="ss-lbl">Cheaper than Reformation, comparable certifications</div></div>
+        <div class="ss-item"><div class="ss-val">100%</div><div class="ss-lbl">Garments made with certified materials, unlike Zara's mixed lines</div></div>
+        <div class="ss-item"><div class="ss-val">3-5</div><div class="ss-lbl">Days average delivery time, on par with fast fashion players</div></div>
       </div>
     </div>
 
@@ -761,6 +813,14 @@
         <div class="value-chip"><span class="ve">💎</span><strong>Calidad</strong><span>Prendas que duran años, no temporadas.</span></div>
         <div class="value-chip"><span class="ve">🤝</span><strong>Cercanía</strong><span>Hablamos claro y de tú a tú.</span></div>
         <div class="value-chip"><span class="ve">✨</span><strong>Estilo</strong><span>Lo sostenible también es bonito.</span></div>
+      </div>
+      <div class="voice-example">
+        <div class="ve-ig">📷</div>
+        <div class="ve-body">
+          <span class="ve-tag">Voice in action · Instagram caption</span>
+          <div class="ve-cap">“This tee has been sewn by Marta's workshop in Valencia, with GOTS-certified organic cotton. <b>No exaggerated claims, no green stickers</b> — just the traceability sheet included in every order. That's what 'sustainable' should mean.” 🌿</div>
+          <div class="ve-meta">Educational pillar · approachable, expert, no posturing</div>
+        </div>
       </div>
     </div>
 
@@ -802,6 +862,11 @@
         </div>
       </div>
       <div class="smart-note"><strong>Objetivo de negocio global:</strong> alcanzar ~15.000€ de facturación mensual recurrente en el mes 3, con un ROAS ≥ 3x y un coste de adquisición (CAC) por debajo de 12€, sentando las bases para escalar de forma rentable.</div>
+      <div class="stat-strip light">
+        <div class="ss-item"><div class="ss-val">4</div><div class="ss-lbl">Funnel stages, each with its own owner metric — no vanity numbers</div></div>
+        <div class="ss-item"><div class="ss-val">3-12</div><div class="ss-lbl">Months timeframe per objective, from quick wins to long-term loyalty</div></div>
+        <div class="ss-item"><div class="ss-val">Weekly</div><div class="ss-lbl">Review cadence to reallocate budget toward what's converting</div></div>
+      </div>
     </div>
 
     <!-- ===== 8 · AUDIENCIA ===== -->
@@ -892,6 +957,11 @@
           <div class="jfunnel">Loyalty</div>
         </div>
       </div>
+      <div class="stat-strip">
+        <div class="ss-item"><div class="ss-val">5</div><div class="ss-lbl">Stages mapped end to end, from first scroll to advocacy</div></div>
+        <div class="ss-item"><div class="ss-val">1</div><div class="ss-lbl">Consistent brand voice across every touchpoint in the journey</div></div>
+        <div class="ss-item"><div class="ss-val">∞</div><div class="ss-lbl">Loop: loyal customers feed back into stage 1 as referrals</div></div>
+      </div>
     </div>
 
     <!-- ===== 10 · TOFU ===== -->
@@ -915,6 +985,11 @@
           <div class="channel-card"><div class="channel-head"><span>🔍</span><h4>SEO &amp; Blog</h4></div><p>Artículos sobre armario cápsula, materiales y estilo consciente. Tráfico orgánico cualificado que trabaja meses después.</p><div class="kpi">Objetivo: 5k visitas/mes</div></div>
           <div class="channel-card"><div class="channel-head"><span>📢</span><h4>Meta Ads (Awareness)</h4></div><p>Campañas de reconocimiento y públicos similares (lookalike) para escalar el alcance más allá del orgánico.</p><div class="kpi">Objetivo: CPM &lt; 6€</div></div>
         </div>
+      </div>
+      <div class="stat-strip">
+        <div class="ss-item"><div class="ss-val">0€</div><div class="ss-lbl">Cost of the organic channels that carry most of TOFU reach</div></div>
+        <div class="ss-item"><div class="ss-val">4</div><div class="ss-lbl">Parallel channels feeding awareness so we're not reliant on one</div></div>
+        <div class="ss-item"><div class="ss-val">Months</div><div class="ss-lbl">SEO and blog traffic compounds well beyond the publish date</div></div>
       </div>
     </div>
 
@@ -989,6 +1064,7 @@
           <div class="rb"><strong>+40%</strong><span>Incremento de LTV esperado con el club de fidelidad</span></div>
         </div>
       </div>
+      <div class="mini-note"><span class="mn-ico">💌</span>Every post-purchase touchpoint is automated end to end — see the exact email sequences in the Email Marketing section — so loyalty compounds without adding manual workload.</div>
     </div>
 
     <!-- ===== 14 · PILARES DE CONTENIDO ===== -->
@@ -1013,6 +1089,11 @@
           <h4>Sí / No</h4>
           <p><span class="yes">Sí:</span> hablamos de tú, claro y con datos reales. &nbsp; <span class="no">No:</span> ni culpabilizamos, ni usamos jerga vacía ni promesas que no podemos demostrar.</p>
         </div>
+      </div>
+      <div class="stat-strip light">
+        <div class="ss-item"><div class="ss-val">4</div><div class="ss-lbl">Fixed pillars keep the calendar balanced instead of improvised</div></div>
+        <div class="ss-item"><div class="ss-val">80/20</div><div class="ss-lbl">Value-first content vs. direct selling, across every channel</div></div>
+        <div class="ss-item"><div class="ss-val">1</div><div class="ss-lbl">Single voice guide referenced by Instagram, email and web copy</div></div>
       </div>
     </div>
 
@@ -1124,6 +1205,11 @@
             <div class="fstep"><div class="fnum">3</div><div class="ftxt"><span class="delay">+10 días:</span> última llamada + limpieza de lista si no reacciona.</div></div>
           </div>
         </div>
+      </div>
+      <div class="stat-strip">
+        <div class="ss-item"><div class="ss-val">4</div><div class="ss-lbl">Flows running 24/7 with zero manual work once configured</div></div>
+        <div class="ss-item"><div class="ss-val">€30</div><div class="ss-lbl">Monthly tool cost for the channel with our highest ROI</div></div>
+        <div class="ss-item"><div class="ss-val">0</div><div class="ss-lbl">Dependence on algorithm changes — this list is fully owned</div></div>
       </div>
     </div>
 
@@ -1251,6 +1337,11 @@
           <p>Visitantes = clientes ÷ conversión ÷ % suscripción · CPC máx = inversión ÷ visitantes</p>
         </div>
       </div>
+      <div class="stat-strip">
+        <div class="ss-item"><div class="ss-val">50x</div><div class="ss-lbl">Fewer visitors needed at 100% newsletter capture vs. 2%</div></div>
+        <div class="ss-item"><div class="ss-val">€0.08</div><div class="ss-lbl">Max CPC affordable at full list capture — real target: €0.002-0.004</div></div>
+        <div class="ss-item"><div class="ss-val">60</div><div class="ss-lbl">Customers/month is the constant we solve for across every scenario</div></div>
+      </div>
     </div>
 
     <!-- ===== 21 · MODELO DE NEGOCIO ===== -->
@@ -1285,6 +1376,11 @@
             <h4>📊 CAC payback &amp; breakeven</h4>
             <p>Con €42 de margen en el primer pedido (€70 × 60%) y un CAC de €12, recuperamos la inversión en la primera compra. Para cubrir los €4.000 de costes fijos necesitamos ≈ 95 pedidos al mes.</p>
           </div>
+          <div class="breakeven-wrap">
+            <h4>Breakeven progress · month 3 projection</h4>
+            <div class="breakeven-track"><div class="breakeven-fill" data-target="42%" style="width:0"></div></div>
+            <div class="breakeven-labels"><span>0</span><span><strong>95 orders</strong> = breakeven</span><span><strong>225 orders</strong> projected</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1302,6 +1398,12 @@
         <div class="week"><div class="wtop"><h4>Semana 3</h4><span class="focus">Conversión</span></div><ul><li><strong>Lun:</strong> Colab micro-influencer</li><li><strong>Mié:</strong> Campaña nueva colección</li><li><strong>Vie:</strong> Countdown + retargeting</li><li><strong>Ads:</strong> activar carrito abandonado</li><li><strong>Email:</strong> primera newsletter</li></ul></div>
         <div class="week"><div class="wtop"><h4>Semana 4</h4><span class="focus">Optimizar</span></div><ul><li><strong>Lun:</strong> Revisión de KPIs</li><li><strong>Jue:</strong> A/B testing de email</li><li><strong>Vie:</strong> Reasignación de presupuesto</li><li><strong>Plan:</strong> escalar lo que funciona</li><li><strong>Plan:</strong> contenidos del mes 2</li></ul></div>
       </div>
+      <div class="stat-strip light">
+        <div class="ss-item"><div class="ss-val">20+</div><div class="ss-lbl">Content pieces published across channels in month 1</div></div>
+        <div class="ss-item"><div class="ss-val">4</div><div class="ss-lbl">Automated systems switched on: pixel, welcome flow, ads, abandoned cart</div></div>
+        <div class="ss-item"><div class="ss-val">Weekly</div><div class="ss-lbl">KPI checkpoint to decide what scales into month 2</div></div>
+      </div>
+      <div class="mini-note light"><span class="mn-ico">🗓️</span>Each week builds on the last: week 1 lays the tracking and automation foundation, weeks 2–3 turn on traffic and conversion levers, and week 4 closes the loop by reinvesting budget into what the data says is working.</div>
     </div>
 
     <!-- ===== 19 · RETOS ===== -->
@@ -1368,6 +1470,7 @@
           <div class="tk"><span class="tke">📊</span><div>Una ejecución <strong>medible y optimizable</strong>, que crece reinvirtiendo en lo que funciona.</div></div>
         </div>
       </div>
+      <div class="mini-note"><span class="mn-ico">✅</span>Ready to launch: tracking pixel, welcome automation and content calendar can go live in week 1 with the €780/month budget already allocated across channels. Everything in this plan is built to start immediately.</div>
     </div>
 
     <!-- ===== 21 · CIERRE ===== -->
@@ -1395,6 +1498,9 @@
     <div class="nav-label"><b id="counter">1</b> / <span id="total">21</span> · <span id="label">Portada</span></div>
     <button class="nav-btn" id="next" aria-label="Siguiente">→</button>
     <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="playBtn" aria-label="Autoplay" title="Autoplay">▶</button>
+    <div class="timer-chip" id="timerChip" title="Click to reset">00:00</div>
+    <button class="nav-btn" id="fsBtn" aria-label="Fullscreen" title="Fullscreen (F)">⛶</button>
   </div>
 
   <div class="slide-menu" id="slideMenu">
@@ -1509,15 +1615,22 @@
       'Dependencia de los costes publicitarios de las plataformas.': 'Dependence on platform advertising costs.',
       // 5 · Competitors
       'Análisis de la competencia': 'Competitor <span>analysis</span>',
-      'Comparamos a GreenThread con los dos grandes grupos de rivales: el fast fashion masivo y las marcas sostenibles premium. Nuestra ventaja está en el punto medio que nadie ocupa bien.': 'We compare GreenThread with the two big rival groups: mass fast fashion and premium sustainable brands. Our advantage lies in the middle ground nobody occupies well.',
-      'Criterio': 'Criteria', 'Sostenible Premium': 'Premium Sustainable',
-      'Precio': 'Price', 'Medio · justo': 'Mid · fair', 'Muy bajo': 'Very low', 'Muy alto': 'Very high',
-      'Precio medio / prenda': 'Avg. price / garment', '35–55€': '€35–55', '8–15€': '€8–15', '80–120€': '€80–120',
-      'Sostenibilidad real': 'Real sustainability', 'Alta y certificada': 'High & certified', 'Baja / dudosa': 'Low / doubtful', 'Alta': 'High',
-      'Estilo / diseño': 'Style / design', 'Actual y deseable': 'Current & desirable', 'Tendencia rápida': 'Fast trends', 'Variable': 'Variable',
-      'Transparencia': 'Transparency', 'Radical (trazabilidad)': 'Radical (traceability)', 'Opaca': 'Opaque', 'Media-alta': 'Mid-high',
-      'Experiencia digital': 'Digital experience', 'Cuidada y simple': 'Polished & simple', 'Muy desarrollada': 'Very advanced', 'A menudo básica': 'Often basic',
-      'Posicionamiento: GreenThread es la moda sostenible sin barreras — la calidad y los valores de una marca premium, con la accesibilidad y la facilidad de compra del fast fashion.': 'Positioning: GreenThread is <em>sustainable fashion without barriers</em> — the quality and values of a premium brand, with the accessibility and ease of buying of fast fashion.',
+      'Comparamos a GreenThread con dos competidores reales que marcan los extremos del mercado: Zara (fast fashion masivo) y Reformation (moda sostenible premium). Nuestra ventaja está en el punto medio que ninguna de las dos ocupa bien.': 'We compare GreenThread with two real competitors that mark the market’s extremes: <strong>Zara</strong> (mass fast fashion) and <strong>Reformation</strong> (premium sustainable fashion). Our advantage lies in the middle ground neither occupies well.',
+      'Criterio': 'Criteria', 'Modelo': 'Model',
+      'D2C online': 'D2C online', 'Retail + online (Inditex)': 'Retail + online (Inditex)', 'D2C online + tiendas propias': 'D2C online + own stores',
+      'Precio': 'Price', 'Medio · justo': 'Mid · fair', 'Bajo': 'Low', 'Alto': 'High',
+      'Precio medio / prenda': 'Avg. price / garment', '35–55€': '€35–55', '15–35€': '€15–35', '90–160€': '€90–160',
+      'Sostenibilidad real': 'Real sustainability', 'Alta y certificada': 'High & certified',
+      'Baja / cuestionada (colección "Join Life")': 'Low / disputed ("Join Life" collection)',
+      'Alta (RefScale propio)': 'High (own RefScale index)',
+      'Estilo / diseño': 'Style / design', 'Actual y deseable': 'Current & desirable',
+      'Tendencia rápida, alta rotación': 'Fast trends, high turnover', 'Trendy, estética femenina': 'Trendy, feminine aesthetic',
+      'Transparencia': 'Transparency', 'Radical (trazabilidad por prenda)': 'Radical (per-garment traceability)',
+      'Opaca en su cadena de suministro': 'Opaque supply chain', 'Media-alta, propio índice de impacto': 'Mid-high, own impact index',
+      'Experiencia digital': 'Digital experience', 'Cuidada y simple': 'Polished & simple',
+      'Muy desarrollada (app + 2.000+ tiendas)': 'Very advanced (app + 2,000+ stores)', 'Cuidada pero catálogo reducido': 'Polished but a smaller catalogue',
+      '* Comparación basada en posicionamiento público de precio y comunicación de sostenibilidad de cada marca (Zara / Inditex, Reformation), no en datos financieros internos.': '* Comparison based on each brand’s public price positioning and sustainability communications (Zara / Inditex, Reformation), not internal financial data.',
+      'Posicionamiento: GreenThread es la moda sostenible sin barreras — la calidad y los valores de Reformation, con la accesibilidad y la facilidad de compra de Zara.': 'Positioning: GreenThread is <em>sustainable fashion without barriers</em> — the quality and values of Reformation, with the accessibility and ease of buying of Zara.',
       // 6 · Brand
       '05 · Identidad de marca': '05 · Brand identity',
       'Misión, visión y valores': 'Mission, vision & <span>values</span>',
@@ -1838,7 +1951,7 @@
       'Alejandro Sánchez · Proyecto Final de Marketing Digital · Ironhack 2026': 'Alejandro Sánchez · Digital Marketing Final Project · Ironhack 2026'
     };
 
-    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link,.ctype h4,.ctype p,.plat .pt,.cad-row .cl,.cad-row .cv,.schema-item .sd,.code-card .ct,.sb-item .sbt,.sb-item .sbd,.xls-head td:not(.rn),.model-card .mh,.model-card p,.bm-row .bm-k,.bm-row .bm-v,.bm-row .bm-r,.bm-frow > div,.bm-callout h4,.bm-callout p';
+    const SEL = '.s1-badge,.s1-tagline,.s1-mission,.s1-meta-item .lbl,.s1-meta-item .val,.slide-tag,.slide-title,.slide-sub,.section-label,.card h3,.card p,.card li,.pillbar span,.metric-label,.uvp strong,.diff-card h4,.diff-card p,.swot-card .sh h4,.swot-card .tagx,.swot-card li,.comp-row > div,.pos-banner strong,.brand-card h4,.brand-card p,.value-chip strong,.value-chip span,.smart-card .scat,.smart-card p,.smart-card .sterm,.smart-note,.agenda-block .ab-head,.agenda-block li,.persona .role,.persona .quote,.persona .tags span,.pblock,.jphase,.jname,.jl,.jrow p,.jfunnel,.funnel-side .title,.funnel-side .goal,.channel-card p,.channel-card .kpi,.content-card h4,.content-card p,.content-card .tip,.bofu-stat span,.post-card .step,.post-card h4,.post-card p,.rb span,.pillar-card h4,.pillar-card .pct,.pillar-card p,.tone-card h4,.tone-tags span,.tone-card p,.ex-card .tagline,.ex-card .format,.ex-card h4,.ex-card p,.ex-card .metric,.flow-head h4,.flow-head .ftrig,.fstep .ftxt,.summary-card span,.budget-row > div,.roi-box h4,.roi-item span,.s9-layout > p,.week h4,.week .focus,.week li,.challenge h4,.ch-prob,.ch-sol,.next-phase .nh,.next-phase h4,.next-phase li,.takeaways h4,.takeaways .tk > div,.closing-phrase,.s12 .tags span,.thanks,.contact,.closing-cta,.landing-link,.ctype h4,.ctype p,.plat .pt,.cad-row .cl,.cad-row .cv,.schema-item .sd,.code-card .ct,.sb-item .sbt,.sb-item .sbd,.xls-head td:not(.rn),.model-card .mh,.model-card p,.bm-row .bm-k,.bm-row .bm-v,.bm-row .bm-r,.bm-frow > div,.bm-callout h4,.bm-callout p,.comp-note';
 
     const norm = s => s.replace(/\s+/g, ' ').trim();
     let i18nNodes = [];
@@ -1848,11 +1961,20 @@
         i18nNodes.push({ el: el, es: el.innerHTML, key: norm(el.textContent) });
       });
     }
+    function syncBadges() {
+      slides.forEach((slide, i) => {
+        const tag = slide.querySelector('.slide-tag');
+        if (!tag) return;
+        const num = String(i + 1).padStart(2, '0');
+        tag.innerHTML = tag.innerHTML.replace(/^(\d{1,2})(\s*·\s*)/, num + '$2');
+      });
+    }
     function applyLang() {
       i18nNodes.forEach(o => {
         if (lang === 'es') { o.el.innerHTML = o.es; }
         else { const en = DICT[o.key]; o.el.innerHTML = (en != null) ? en : o.es; }
       });
+      syncBadges();
       document.documentElement.lang = lang;
       document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
       const isES = lang === 'es';
@@ -1866,11 +1988,83 @@
       b.addEventListener('click', () => { lang = b.dataset.lang; applyLang(); });
     });
 
+    /* ---------- Animated counters ---------- */
+    const COUNT_SEL = '.metric-value,.sval,.bofu-stat strong,.summary-card strong,.rb strong';
+    function animateCounters(scope) {
+      scope.querySelectorAll(COUNT_SEL).forEach(el => {
+        if (el.dataset.counted) return;
+        const text = el.textContent;
+        const m = text.match(/\d[\d.,]*/);
+        if (!m) return;
+        el.dataset.counted = '1';
+        const raw = m[0];
+        const target = parseFloat(raw.replace(/\./g, '').replace(',', '.'));
+        if (isNaN(target) || target === 0) return;
+        const before = text.slice(0, m.index);
+        const after = text.slice(m.index + raw.length);
+        const dur = 900, start = performance.now();
+        (function frame(now) {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          if (p < 1) {
+            el.textContent = before + Math.round(target * eased).toLocaleString('en-US') + after;
+            requestAnimationFrame(frame);
+          } else {
+            el.textContent = text;
+          }
+        })(start);
+      });
+      const bar = scope.querySelector('.breakeven-fill');
+      if (bar && !bar.dataset.filled) { bar.dataset.filled = '1'; requestAnimationFrame(() => { bar.style.width = bar.dataset.target || '0%'; }); }
+    }
+
+    /* ---------- 3D tilt on cards ---------- */
+    const TILT_SEL = '.card,.metric-box,.persona,.smart-card,.brand-card,.ex-card,.channel-card,.post-card,.pillar-card,.content-card,.value-chip,.challenge,.ctype,.flow-card,.stat-strip .ss-item,.voice-example';
+    document.querySelectorAll(TILT_SEL).forEach(el => {
+      el.setAttribute('data-tiltable', '');
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = `perspective(800px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) translateY(-4px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+
+    /* ---------- Presentation timer ---------- */
+    let timerStart = Date.now();
+    const timerChip = document.getElementById('timerChip');
+    function tickTimer() {
+      const s = Math.floor((Date.now() - timerStart) / 1000);
+      timerChip.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+    }
+    setInterval(tickTimer, 1000);
+    timerChip.addEventListener('click', () => { timerStart = Date.now(); tickTimer(); });
+
+    /* ---------- Autoplay ---------- */
+    let autoplayTimer = null;
+    const playBtn = document.getElementById('playBtn');
+    function stopAutoplay() { clearInterval(autoplayTimer); autoplayTimer = null; playBtn.textContent = '▶'; playBtn.classList.remove('playing'); }
+    playBtn.addEventListener('click', () => {
+      if (autoplayTimer) { stopAutoplay(); return; }
+      playBtn.textContent = '⏸'; playBtn.classList.add('playing');
+      autoplayTimer = setInterval(() => {
+        if (current >= slides.length - 1) { stopAutoplay(); return; }
+        goTo(current + 1);
+      }, 12000);
+    });
+
+    /* ---------- Fullscreen ---------- */
+    document.getElementById('fsBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
     function update() {
       slides.forEach((slide, i) => {
         const isActive = i === current;
         slide.classList.toggle('active', isActive);
-        if (isActive) slide.scrollTop = 0;
+        if (isActive) { slide.scrollTop = 0; animateCounters(slide); }
       });
       document.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('on', i === current));
       counter.textContent = current + 1;
@@ -1915,7 +2109,13 @@
       if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
       if (e.key === 'Home') goTo(0);
       if (e.key === 'End') goTo(slides.length - 1);
+      if (e.key === 'f' || e.key === 'F') document.getElementById('fsBtn').click();
+      if (e.key === ' ') { e.preventDefault(); playBtn.click(); }
     });
+
+    document.getElementById('next').addEventListener('click', () => { if (autoplayTimer) stopAutoplay(); });
+    document.getElementById('prev').addEventListener('click', () => { if (autoplayTimer) stopAutoplay(); });
+    dots.addEventListener('click', () => { if (autoplayTimer) stopAutoplay(); });
 
     buildI18n();
     applyLang();
